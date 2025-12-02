@@ -4,7 +4,6 @@
   --background: #ffffff;
   --foreground: #171717;
   --pink: #FF2A70;
-  
 }
 
 @theme inline {
@@ -25,6 +24,10 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Ubuntu", Helvetica, sans-serif;
-   display: grid;
+  display: grid;
   grid-template-columns: [full-start] 1fr [content-start] minmax(0, 600px) [middle] minmax(0, 600px) [content-end] 1fr [full-end];
+}
+
+.col-full {
+  grid-column: full-start / full-end;
 }
