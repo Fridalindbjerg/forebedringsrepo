@@ -1,4 +1,5 @@
 import { div } from "framer-motion/client";
+import Comments from "./components/comments";
 
 const Blog = async ({ params }) => {
   const { id } = await params;
@@ -31,6 +32,7 @@ const Blog = async ({ params }) => {
                 <p className="text-(--pink)">{comment.date}</p>
               </div>
               <p className="">{comment.content}</p>
+              <Comments postId={singlepost.id} />
             </div>
           ))}
         </div>
