@@ -3,7 +3,7 @@ import Link from "next/link";
 const Blogposts = async () => {
   "use server";
 
-  const response = await fetch("http://localhost:4000/blogposts?embed=comments&limit=3");
+  const response = await fetch("http://localhost:4000/blogposts?_embed=comments&_limit=3");
   const posts = await response.json();
 
   return (
@@ -18,7 +18,7 @@ const Blogposts = async () => {
             <div className="flex gap-4 flex-col">
               <h2 className="text-xl font-semibold">{post.title}</h2>
               <div className="flex flex-row gap-2 text-(--pink) font-semibold">
-                <p>{post.author}</p>
+                <p>BY: {post.author}</p>
                 <span>/</span>
                 <p>{post.comments?.length ?? 0} comments</p>
                 <span>/</span>
