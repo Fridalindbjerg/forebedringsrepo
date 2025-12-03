@@ -3,7 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --pink: #FF2A70;
+  --pink: #ff2a70;
 }
 
 @theme inline {
@@ -21,6 +21,7 @@
 }
 
 body {
+  background-image: url("/assets/bg/pattern_bg.jpg");
   background: var(--background);
   color: var(--foreground);
   font-family: "Ubuntu", Helvetica, sans-serif;
