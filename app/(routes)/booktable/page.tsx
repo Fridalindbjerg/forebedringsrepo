@@ -19,24 +19,34 @@ export default function Page() {
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<FormFields>();
+
   const onSubmit: SubmitHandler<FormFields> = (data) => {
     console.log(data);
   };
 
+  const handlePickTable = (n: number) => {
+    setValue("tablenumber", n, { shouldValidate: true, shouldDirty: true });
+  };
+
+  const picked = watch("tablenumber");
+
   return (
     <main className="[grid-column:content-start/content-end]">
-      <Tables />
+      <Tables onPick={handlePickTable} 
+     />
 
-      <h1 className="font-medium leading-none uppercase text-3xl  my-2.5">Book a table</h1>
+      <h1 className="font-medium leading-none uppercase text-3xl  my-2.5 text-white">Book a table</h1>
       <form
         className="grid grid-cols-1 md:grid-cols-2
-      auto-rows-auto gap-2 md:gap-4 "
+      auto-rows-auto gap-2 md:gap-4 text-white placeholder-white"
         onSubmit={handleSubmit(onSubmit)}
       >
         <input
-          className="border-white border px-2 py-2 placeholder-white w-full"
+          className="border-white border px-2 py-2  w-full"
           //   Type her hvilket slags input felt det er
           type="text"
           placeholder="Your Name"
@@ -47,18 +57,16 @@ export default function Page() {
           })}
         />
         {errors.name && <div className="text-red-500">{errors.name.message}</div>}
-        <input
-          className="border-white border px-2 py-2 placeholder-white w-full"
-          type="number"
-          placeholder="Table Number"
-          {...register("tablenumber", {
-            required: "Table is required",
-            validate: (value) => /\p{L}{2,}/u.test(value) || "You must choose a table",
-          })}
-        />
+
+        <input 
+        type="text" 
+        readOnly 
+        value={picked ?? ""} 
+        className="border-white border px-2 py-2  w-full" 
+        placeholder="Click a table above" />
         {errors.tablenumber && <div className="text-red-500">{errors.tablenumber.message}</div>}
         <input
-          className="border-white border px-2 py-2 placeholder-white w-full"
+          className="border-white border px-2 py-2  w-full"
           type="text"
           placeholder="Select Date"
           {...register("date", {
@@ -68,7 +76,7 @@ export default function Page() {
         />
         {errors.tablenumber && <div className="text-red-500">{errors.tablenumber.message}</div>}
         <input
-          className="border-white border px-2 py-2 placeholder-white w-full"
+          className="border-white border px-2 py-2  w-full"
           type="text"
           placeholder="Email"
           {...register("email", {
@@ -79,7 +87,7 @@ export default function Page() {
         {errors.email && <div className="text-red-500">{errors.email.message}</div>}
 
         <input
-          className="border-white border px-2 py-2 placeholder-white w-full"
+          className="border-white border px-2 py-2  w-full"
           type="number"
           placeholder="Number of Guests"
           {...register("guests", {
@@ -98,7 +106,7 @@ export default function Page() {
         {errors.guests && <div className="text-red-500">{errors.guests.message}</div>}
 
         <input
-          className="border-white border px-2 py-2 placeholder-white w-full"
+          className="border-white border px-2 py-2  w-full"
           type="number"
           placeholder="Phone Number"
           {...register("phone", {
@@ -115,9 +123,9 @@ export default function Page() {
         />
         {errors.phone && <div className="text-red-500">{errors.phone.message}</div>}
 
-        {/* <input className="border-white border px-2 py-2 placeholder-white md:col-span-2 h-36" type="text" placeholder="Your Comment" {...register("comments", {})} /> */}
+        {/* <input className="border-white border px-2 py-2  md:col-span-2 h-36" type="text" placeholder="Your Comment" {...register("comments", {})} /> */}
 
-        <textarea className="border-white border px-2 py-2 placeholder-white h-36 resize-none md:col-span-2" placeholder="Your Comment" {...register("comments")} />
+        <textarea className="border-white border px-2 py-2  h-36 resize-none md:col-span-2" placeholder="Your Comment" {...register("comments")} />
 
         <div className="md:col-span-2 flex justify-end">
           <button
