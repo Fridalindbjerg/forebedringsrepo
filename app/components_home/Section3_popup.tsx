@@ -76,69 +76,28 @@ export default function GalleryWithFramerModal({ gallery }: Props) {
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_2fr_1fr] ">
-        {/* bruger slice til at vise de første 4 billeder (slice: et stykke af pizzaen) */}
         {gallery.slice(0, 4).map((pic, i) => (
-          <div key={pic.id} className="relative group ">
-            <div
-              className="
-          absolute bottom-0 right-0 w-0 h-0 
-          border-l-30 border-l-transparent 
-          border-b-30 border-b-(--pink)
-          opacity-0 transition-opacity duration-300 
-          group-hover:opacity-100
-          "
-            />
-            <div
-              className="
-          absolute top-0 left-0 w-0 h-0 
-          border-r-30 border-r-transparent 
-          border-t-30 border-t-(--pink)
-          opacity-0 transition-opacity duration-300 
-          group-hover:opacity-100
-          "
-            />
-            <img
-              src={pic.asset.url}
-              alt={pic.description}
-              className="w-full h-[250px] object-cover cursor-pointer hover:border-y-2 border-(--pink) duration-300 
-          group-hover:opacity-100 "
-              onClick={() => openModal(i)}
-            />
-          </div>
+          <motion.div
+            key={pic.id}
+            className="relative group"
+            initial={{ opacity: 0, x: -70 }} // Start udenfor til venstre
+            whileInView={{ opacity: 1, x: 0 }} // Når den er i view, glide til position
+            viewport={{ once: true }} // Animér kun første gang
+            transition={{ duration: 1, delay: i * 0.125 }} // lidt stagger
+          >
+            <div className=" absolute bottom-0 right-0 w-0 h-0 border-l-30 border-l-transparent border-b-30 border-b-(--pink) opacity-0 transition-opacity duration-300 group-hover:opacity-100 " />
+            <div className=" absolute top-0 left-0 w-0 h-0 border-r-30 border-r-transparent border-t-30 border-t-(--pink) opacity-0 transition-opacity duration-300 group-hover:opacity-100 " />
+            <img src={pic.asset.url} alt={pic.description} className="w-full h-[250px] object-cover cursor-pointer hover:border-y-2 border-(--pink) duration-300" onClick={() => openModal(i)} />
+          </motion.div>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3">
-        {/* Bruger slice til at vise de sidste 3 billeder (slice: et stykke af pizzaen) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 ">
         {gallery.slice(4, 7).map((pic, i) => (
-          <div key={pic.id} className="relative group">
-            <div
-              className="
-          absolute bottom-0 right-0 w-0 h-0 
-          border-l-30 border-l-transparent 
-          border-b-30 border-b-(--pink)
-          opacity-0 transition-opacity duration-300 
-          group-hover:opacity-100
-          "
-            />
-            <div
-              className="
-             
-          absolute top-0 left-0 w-0 h-0 
-          border-r-30 border-r-transparent 
-          border-t-30 border-t-(--pink)
-          opacity-0 transition-opacity duration-300 
-          group-hover:opacity-100
-          "
-            />
-            <img
-              src={pic.asset.url}
-              alt={pic.description}
-              className="w-full h-[250px] object-cover cursor-pointer hover:border-y-2 border-(--pink) duration-300 
-          group-hover:opacity-100 "
-              onClick={() => openModal(i + 4)}
-            />
-          </div>
+          <motion.div key={pic.id} className="relative group" initial={{ opacity: 0, x: -70 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 1, delay: i * 0.125 }}>
+            <div className=" absolute bottom-0 right-0 w-0 h-0 border-l-30 border-l-transparent border-b-30 border-b-(--pink) opacity-0 transition-opacity duration-300 group-hover:opacity-100 " /> <div className=" absolute top-0 left-0 w-0 h-0 border-r-30 border-r-transparent border-t-30 border-t-(--pink) opacity-0 transition-opacity duration-300 group-hover:opacity-100 " />
+            <img src={pic.asset.url} alt={pic.description} className="w-full h-[250px] object-cover cursor-pointer hover:border-y-2 border-(--pink) duration-300" onClick={() => openModal(i + 4)} />
+          </motion.div>
         ))}
       </div>
 
