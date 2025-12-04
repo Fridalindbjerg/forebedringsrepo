@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Tables from "./components/tables";
+import Button from "../../button";
 
 // definer type (KUN i typescript) for form felter
 type FormFields = {
@@ -56,7 +57,7 @@ export default function Page() {
             validate: (value) => /\p{L}{2,}/u.test(value) || "Name must be at least 2 letters",
           })}
         />
-        {errors.name && <div className="text-red-500">{errors.name.message}</div>}
+        {errors.name && <div className="text-white">{errors.name.message}</div>}
 
         <input 
         type="text" 
@@ -64,7 +65,7 @@ export default function Page() {
         value={picked ?? ""} 
         className="border-white border px-2 py-2  w-full" 
         placeholder="Click a table above" />
-        {errors.tablenumber && <div className="text-red-500">{errors.tablenumber.message}</div>}
+        {errors.tablenumber && <div className="text-white">{errors.tablenumber.message}</div>}
         <input
           className="border-white border px-2 py-2  w-full"
           type="text"
@@ -74,7 +75,7 @@ export default function Page() {
             validate: (value) => /\p{L}{2,}/u.test(value) || "You must choose a date",
           })}
         />
-        {errors.tablenumber && <div className="text-red-500">{errors.tablenumber.message}</div>}
+        {errors.tablenumber && <div className="text-white">{errors.tablenumber.message}</div>}
         <input
           className="border-white border px-2 py-2  w-full"
           type="text"
@@ -84,7 +85,7 @@ export default function Page() {
             validate: (value) => value.includes("@") || "Email must include @",
           })}
         />
-        {errors.email && <div className="text-red-500">{errors.email.message}</div>}
+        {errors.email && <div className="text-white">{errors.email.message}</div>}
 
         <input
           className="border-white border px-2 py-2  w-full"
@@ -103,7 +104,7 @@ export default function Page() {
             },
           })}
         />
-        {errors.guests && <div className="text-red-500">{errors.guests.message}</div>}
+        {errors.guests && <div className="text-white">{errors.guests.message}</div>}
 
         <input
           className="border-white border px-2 py-2  w-full"
@@ -121,21 +122,14 @@ export default function Page() {
             },
           })}
         />
-        {errors.phone && <div className="text-red-500">{errors.phone.message}</div>}
+        {errors.phone && <div className="text-white">{errors.phone.message}</div>}
 
         {/* <input className="border-white border px-2 py-2  md:col-span-2 h-36" type="text" placeholder="Your Comment" {...register("comments", {})} /> */}
 
         <textarea className="border-white border px-2 py-2  h-36 resize-none md:col-span-2" placeholder="Your Comment" {...register("comments")} />
 
         <div className="md:col-span-2 flex justify-end">
-          <button
-            type="submit"
-            className="border border-white bg-black text-white px-6 py-3
-               hover:bg-white hover:text-black transition-colors
-               w-auto"
-          >
-            Reserve
-          </button>
+          <Button text="Reserve" />
         </div>
       </form>
     </main>
