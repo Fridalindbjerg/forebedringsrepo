@@ -9,7 +9,7 @@ const Header = () => {
     const menuItems = [
         { label: "HOME", href: "/" },
         { label: "BLOG", href: "/blog" },
-        { label: "BOOK TABLE", href: "/book" },
+        { label: "BOOK TABLE", href: "/booktable" },
         { label: "CONTACT US", href: "/contact" },
     ];
 
