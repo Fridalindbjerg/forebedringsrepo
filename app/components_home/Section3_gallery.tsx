@@ -21,7 +21,6 @@
 
 import { useState, useEffect } from "react";
 import Section3_popup, { Picture } from "./Section3_popup";
-import { div } from "framer-motion/client";
 
 const Section3_Gallery = () => {
   const [gallery, setGallery] = useState<Picture[]>([]);
