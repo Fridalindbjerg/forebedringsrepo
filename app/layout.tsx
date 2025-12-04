@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+// import Header from "./Header";
 
 
 const ubuntu = Ubuntu({
@@ -22,9 +23,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${ubuntu.variable}  antialiased`}>{children}</body>
-      
+      <body className={`${ubuntu.variable}  antialiased`}>
+        {/* <Header /> */}
+        {children}
 
+      </body>
     </html>
   );
 }
