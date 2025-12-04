@@ -1,4 +1,6 @@
 "use client";
+import { table } from "console";
+import { isReservedPage } from "next/dist/build/utils";
 import Image from "next/image";
 
 function Table({ number, image, onPick, disabled = false }: { number: number; image: string; onPick: (n: number) => void; disabled?: boolean }) {
@@ -18,13 +20,73 @@ function Table({ number, image, onPick, disabled = false }: { number: number; im
   );
 }
 
-export default function Tables({ onPick }: { onPick: (n: number) => void }) {
+export default function Tables({ onPick, reservedTables }: { onPick: (n: number) => void; reservedTables: Array<{ id: number; table: number; date: string }> }) {
+  const tableArr = [
+    {
+      number: 1,
+      img: "/assets/table/table_1.png",
+      isReserved: false,
+    },
+    {
+      number: 2,
+      img: "/assets/table/table_1.png",
+      isReserved: true,
+    },
+    {
+      number: 3,
+      img: "/assets/table/table_1.png",
+      isReserved: true,
+    },
+    {
+      number: 4,
+      img: "/assets/table/table_1.png",
+      isReserved: true,
+    },
+    {
+      number: 5,
+      img: "/assets/table/table_1.png",
+      isReserved: true,
+    },
+    {
+      number: 6,
+      img: "/assets/table/table_2.png",
+      isReserved: true,
+    },
+    {
+      number: 7,
+      img: "/assets/table/table_2.png",
+      isReserved: true,
+    },
+    {
+      number: 8,
+      img: "/assets/table/table_2.png",
+      isReserved: true,
+    },
+    {
+      number: 9,
+      img: "/assets/table/table_2.png",
+      isReserved: true,
+    },
+    {
+      number: 10,
+      img: "/assets/table/table_2.png",
+      isReserved: true,
+    },
+  ];
+
   return (
     <div className="w-full mx-auto p-4">
       <h1 className="text-center text-3xl font-bold mb-8">BOOK TABLE</h1>
 
       <div className="grid gap-4 [grid-template-columns:repeat(auto-fill,_minmax(180px,_1fr))]">
-        <Table number={1} image="/assets/table/table_1.png" onPick={onPick} />
+        {tableArr.map((table, id) => {
+          const isReserved = reservedTables.find((res) => {
+            return res.table == table.number;
+          });
+
+          return <Table key={id} number={table.number} image={table.img} onPick={onPick} disabled={Boolean(isReserved)} />;
+        })}
+        {/* <Table number={1} image="/assets/table/table_1.png" onPick={onPick} />
         <Table number={2} image="/assets/table/table_1.png" onPick={onPick} />
         <Table number={3} image="/assets/table/table_1.png" onPick={onPick} />
         <Table number={4} image="/assets/table/table_1.png" onPick={onPick} />
@@ -38,7 +100,7 @@ export default function Tables({ onPick }: { onPick: (n: number) => void }) {
         <Table number={12} image="/assets/table/table_3.png" onPick={onPick} />
         <Table number={13} image="/assets/table/table_3.png" onPick={onPick} />
         <Table number={14} image="/assets/table/table_3.png" onPick={onPick} />
-        <Table number={15} image="/assets/table/table_3.png" onPick={onPick} />
+        <Table number={15} image="/assets/table/table_3.png" onPick={onPick} /> */}
       </div>
     </div>
   );
