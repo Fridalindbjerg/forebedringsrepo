@@ -34,7 +34,7 @@ export default function HomePage() {
       </div>
     }>
       <section
-        className="w-screen h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center"
+        className="w-screen h-170 bg-cover bg-center bg-no-repeat flex items-center justify-center"
         style={{ backgroundImage: `url(${backgroundImage})` }}
       >
         {/* Content to be loaded: Udkommenteres for at fjerne delay*/}

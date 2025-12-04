@@ -1,14 +1,16 @@
 "use client";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 
 const Header = () => {
     const pathname = usePathname();
+    const [open, setOpen] = useState(false);
     // Menu items array:
     const menuItems = [
-        { label: "Home", href: "/" },
-        { label: "Blog", href: "/blog" },
-        { label: "Book table", href: "/book" },
-        { label: "Contact Us", href: "/contact" },
+        { label: "HOME", href: "/" },
+        { label: "BLOG", href: "/blog" },
+        { label: "BOOK TABLE", href: "/book" },
+        { label: "CONTACT US", href: "/contact" },
     ];
 
     return (
@@ -27,14 +29,17 @@ const Header = () => {
                         </a>
                     </div>
                     {/* liste over menupunkter, hvor hvert punkt er et link, og hvis dets href matcher den aktuelle side (pathname), vises et billede under det for at indikere, at det er aktivt. */}
-                    <ul className="flex gap-10 text-white">
+                    <ul className="hidden md:flex gap-10 text-white">
                         {/* mapper over menuItems arrayet for at generere menupunkterne, og tilføjer en betingelse for at vise et billede under det aktive menupunkt*/}
                         {menuItems.map((item, index) => (
                             <li key={index} className="cursor-pointer flex flex-col items-center">
                                 {/* item.label kommer også fra menuItems, fx "Home" eller "Blog". */} {/* item.href kommer fra dit menuItems-array, fx "/" eller "/blog" */}
-                                <a href={item.href} className={`${pathname === item.href ? "text-(--pink)" : "text-white"
-                                    }`}>{item.label}
+                                <a href={item.href}
+                                    // Gør det aktive menupunkt pink, ellers hvidt
+                                    className={`${pathname === item.href ? "text-(--pink)" : "text-white"
+                                        }`}>{item.label}
                                 </a>
+                                {/* Hvis den aktuelle rute matcher linket → vis den lille pink underline-grafik */}
                                 {pathname === item.href && (
                                     <img src="/assets/bottom_line2.png" alt="Bottom line" className="mt-1 w-20" />
                                 )}
@@ -42,7 +47,46 @@ const Header = () => {
                         ))
                         }
                     </ul>
+                    {/* Burger menu: */}
+                    <button
+                        className="md:hidden text-white text-3xl z-50"
+                        onClick={() => setOpen(true)}
+                    >
+                        ☰
+                    </button>
                 </div>
+                {/* Mobil fullscreen overlay menu */}
+                {open && (
+                    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center z-50">
+
+                        {/* X-Knap */}
+                        <button
+                            className="absolute top-6 right-6 text-white text-4xl"
+                            // false fordi vi lukker menuen og den derfor er setOpen falsk 
+                            onClick={() => setOpen(false)}
+                        >
+                            ✕
+                        </button>
+
+                        {/* Menu items */}
+                        <ul className="flex flex-col text-center gap-10 text-white text-2xl">
+                            {/* Looper gennem alle menupunkter fra menuItems-arrayet */}
+                            {menuItems.map((item, index) => (
+                                <li key={index}>
+                                    <a
+                                        href={item.href}
+                                        // Luk menuen når man klikker på et menupunkt
+                                        onClick={() => setOpen(false)}
+                                        // Hvis den aktuelle side matcher linkets href → farves det pink, og ellers hvid
+                                        className={`${pathname === item.href ? "text-(--pink)" : "text-white"} tracking-wide`}
+                                    >
+                                        {item.label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
             </div>
         </header>
     );
