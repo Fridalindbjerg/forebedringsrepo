@@ -34,7 +34,7 @@ export default function HomePage() {
       </div>
     }>
       <section
-        className="w-screen h-170 bg-cover bg-center bg-no-repeat flex items-center justify-center"
+        className="w-screen h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center"
         style={{ backgroundImage: `url(${backgroundImage})` }}
       >
         {/* Content to be loaded: Udkommenteres for at fjerne delay*/}
@@ -56,7 +56,7 @@ export default function HomePage() {
 
               {/* -- hertil */}
 
-              <motion.p className="w-full text-justify text-3xl px-14 text-white"
+              <motion.p className="w-full  text-justify text-3xl px-14 text-white"
                 initial={{ y: -10, opacity: 0 }}
                 animate={{ y: 20, opacity: 1 }}
                 transition={{ delay: 1.5, duration: 1, ease: "easeOut" }}
