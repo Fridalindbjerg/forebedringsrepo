@@ -32,7 +32,7 @@ const Header = () => {
                         {menuItems.map((item, index) => (
                             <li key={index} className="cursor-pointer flex flex-col items-center">
                                 {/* item.label kommer også fra menuItems, fx "Home" eller "Blog". */} {/* item.href kommer fra dit menuItems-array, fx "/" eller "/blog" */}
-                                <a href={item.href} className={`${pathname === item.href ? "text-[var(--pink)]" : "text-white"
+                                <a href={item.href} className={`${pathname === item.href ? "text-(--pink)" : "text-white"
                                     }`}>{item.label}
                                 </a>
                                 {pathname === item.href && (
