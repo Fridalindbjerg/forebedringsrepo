@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Tables from "./components/tables";
+import Button from "../../button";
 
 // definer type (KUN i typescript) for form felter
 type FormFields = {
@@ -128,14 +129,7 @@ export default function Page() {
         <textarea className="border-white border px-2 py-2  h-36 resize-none md:col-span-2" placeholder="Your Comment" {...register("comments")} />
 
         <div className="md:col-span-2 flex justify-end">
-          <button
-            type="submit"
-            className="border border-white bg-black text-white px-6 py-3
-               hover:bg-white hover:text-black transition-colors
-               w-auto"
-          >
-            Reserve
-          </button>
+          <Button text="Reserve" />
         </div>
       </form>
     </main>

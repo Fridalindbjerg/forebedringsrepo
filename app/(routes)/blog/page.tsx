@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Button from "../../button";
 
 // type BlogPost = {
 //   id: number;
@@ -82,8 +83,17 @@ const Blogposts = async () => {
 
               <p className="line-clamp-6">{post.content}</p>
 
-              <div >
-                <Link href={`/blogposts/${post.id}`} className=" inline-block pt-4 pb-4 border-t border-b border-white text-sm  justify-self-center hover:bg-white hover:text-black transition px-4 py-2">
+              <div>
+                <Link
+                  href={`/blogposts/${post.id}`}
+                  className="px-6 py-3
+        text-xs font-semibold tracking-widest uppercase
+        text-white
+        border-t border-b border-white
+        bg-transparent
+        transition-colors duration-200
+        hover:bg-white hover:text-black"
+                >
                   READ MORE
                 </Link>
               </div>
