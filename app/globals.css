@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --pink: #FF2A70;
+  --foreground: #ffffff;
+  --background: #171717;
+  --pink: #ff2a70;
 }
 
 @theme inline {
@@ -21,7 +21,7 @@
 }
 
 body {
-  background: var(--background);
+  background-image: url("/assets/bg/pattern_bg.jpg");
   color: var(--foreground);
   font-family: "Ubuntu", Helvetica, sans-serif;
   display: grid;
