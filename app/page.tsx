@@ -3,6 +3,7 @@ import { Suspense, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Header from "./Header";
 
+
 // Timer på loading så den er synlig: Udkommenteres for at fjerne delay
 // async function LoadContent() {
 //   await new Promise((resolve) => setTimeout(resolve, 1500));

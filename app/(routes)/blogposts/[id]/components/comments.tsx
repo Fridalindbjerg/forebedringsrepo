@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import Button from "../../../../button";
 
 // typescript type for form data
-type FormData = { name: string; content: string };
+type commentForm = { name: string; content: string };
 
 // komponenten modtager postID som prop, så kommentaren knyttes til den rigtige blogpost
 // benyttet ai som hjælp til hvordan man laver en kommentar form med react-hook-form, da typescript fungerer anderledes end javascript - vi har også set youtube.
@@ -18,14 +18,14 @@ export default function Comments({ postId }: { postId: number }) {
     register,
     // sørger for at validering sker ved tryk på submit knap
     handleSubmit,
-    // nulstiller formen efter submit
     reset,
+    // nulstiller formen efter submit
    
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<commentForm>();
 
   // funnktionen der kører når ovenstående validering er bestået
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: commentForm) => {
     await fetch("http://localhost:4000/comments", {
       // sender en POST til api'en
       method: "POST",

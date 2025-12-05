@@ -1,6 +1,7 @@
 import Section3_Gallery from "@/app/components_home/Section3_gallery";
 import Link from "next/link";
 import Button from "../../button";
+import EmailSub from "@/app/components_home/Section8_email_sub";
 
 // type BlogPost = {
 //   id: number;
@@ -25,6 +26,7 @@ const Blogposts = async () => {
       my-8 
     "
     >
+      <EmailSub />
       <h1 className="col-[content-start/content-end] text-3xl font-bold mx-5 my-5 ">De 3 nyeste blogposts</h1>
 
       {posts.map((post, i) => {
@@ -67,7 +69,7 @@ const Blogposts = async () => {
               space-y-4
             `}
             >
-              <h2 className="text-xl font-semibold">{post.title}</h2>
+              <h2 className="text-xl font-medium uppercase">{post.title}</h2>
 
               <div
                 className={`
