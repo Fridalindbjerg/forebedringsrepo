@@ -3,6 +3,7 @@ import { Suspense, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Header from "./Header";
 import Section3_Gallery from "./components_home/Section3_gallery";
+import Index_h2 from "./components_home/Index_h2";
 
 // Timer på loading så den er synlig: Udkommenteres for at fjerne delay
 // async function LoadContent() {
@@ -61,6 +62,7 @@ export default function HomePage() {
         </div>
       </section>
       <Header />
+      <Index_h2 text="night club gallery" />
       <Section3_Gallery />
     </Suspense>
   );
