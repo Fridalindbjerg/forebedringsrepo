@@ -22,9 +22,9 @@ const Blogposts = async () => {
   return (
     <main
       className="
-      col-[full-start/full-end]
-      grid grid-cols-subgrid 
-      my-8 
+    col-[full-start/full-end]
+    grid grid-cols-subgrid 
+    my-8 
     "
     >
       <Banner />
