@@ -32,7 +32,7 @@ export default function RootLayout({
         {/* <Header /> */}
         {children}
 
-        <footer className="relative w-full bg-transparent py-12">
+        <footer className="relative col-full bg-transparent py-12">
           {/* Baggrund */}
           <div
             className="absolute inset-0 bg-cover bg-center -z-10"
