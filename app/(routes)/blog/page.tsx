@@ -2,6 +2,7 @@ import Section3_Gallery from "@/app/components_home/Section3_gallery";
 import Link from "next/link";
 import Button from "../../button";
 import EmailSub from "@/app/components_home/Section8_email_sub";
+import Banner from "@/app/components_home/Banner";
 
 // type BlogPost = {
 //   id: number;
@@ -26,6 +27,7 @@ const Blogposts = async () => {
       my-8 
     "
     >
+      <Banner />
       <EmailSub />
       <h1 className="col-[content-start/content-end] text-3xl font-bold mx-5 my-5 ">De 3 nyeste blogposts</h1>
 
