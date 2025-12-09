@@ -15,9 +15,8 @@ const Section3_Gallery = async () => {
   }
 
   return (
-    <div className="max-w-full">
-      <Index_h2 text="night club gallery" />
-      <Suspense fallback={<div>Loading gallery...</div>}>
+    <div>
+      <div className="max-w-full">
         <Section3_popup gallery={gallery} />
       </Suspense>
     </div>
