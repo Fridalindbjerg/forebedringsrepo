@@ -4,7 +4,6 @@ import Section3_Gallery from "./components_home/Section3_gallery";
 import Index_h2 from "./components_home/Index_h2";
 import Latestvideo from "./components_home/Latestvideo";
 
-
 // Timer på loading så den er synlig: Udkommenteres for at fjerne delay
 // async function LoadContent() {
 //   await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -12,11 +11,8 @@ import Latestvideo from "./components_home/Latestvideo";
 // }
 
 export default function HomePage() {
-
   return (
     <div>
-      <Hero />
-      <Header />
       <Section3_Gallery />
       <Index_h2 text="Latest video" />
       <Latestvideo />
