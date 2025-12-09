@@ -6,7 +6,6 @@ import Latestvideo from "./components_home/Latestvideo";
 import EmailSub from "./components_home/Section8_email_sub";
 import Testimonials from "./components_home/Testimonials";
 
-
 // Timer på loading så den er synlig: Udkommenteres for at fjerne delay
 // async function LoadContent() {
 //   await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -14,11 +13,8 @@ import Testimonials from "./components_home/Testimonials";
 // }
 
 export default function HomePage() {
-
   return (
     <div>
-      <Hero />
-      <Header />
       <Section3_Gallery />
       <Index_h2 text="Latest video" />
       <Latestvideo />
