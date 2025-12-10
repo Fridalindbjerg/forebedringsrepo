@@ -52,7 +52,9 @@ const Blog = async ({ params }) => {
           )}
         </div>
 
-        <Comments postId={singlepost.id} />
+       
+          <Comments postId={singlepost.id} />
+       
       </div>
     </div>
   );
