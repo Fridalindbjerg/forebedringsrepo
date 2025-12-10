@@ -14,7 +14,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="col-full sticky top-0 bg-black h-20 flex items-center border-y-2 border-(--pink) z-50">
+    <header className="col-[full-start/full-end] sticky top-0 bg-black h-20 flex items-center border-y-2 border-(--pink) z-50">
       <div className="flex relative w-full h-full">
         {/* Trekanterne i hhv. højre og venstre hjørne: */}
         <div className="absolute bottom-0 right-0 w-0 h-0 border-l-30 border-l-transparent border-b-30 border-b-(--pink)" />

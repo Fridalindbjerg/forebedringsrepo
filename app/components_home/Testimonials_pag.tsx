@@ -49,7 +49,7 @@ export default function TestimonialsCarousel({ testimonials }: Props) {
       </AnimatePresence>
 
       {/* Pagination dots */}
-      <div className="flex justify-center gap-2 mt-4">
+      <div className="flex justify-center gap-2 mt-8">
         {testimonials.map((testimonial, i) => (
           <button key={i} onClick={() => setIndex(i)} className={`w-3 h-3  ${i === index ? "bg-(--pink)" : "bg-white"}`} />
         ))}

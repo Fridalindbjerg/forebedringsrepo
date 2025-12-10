@@ -7,8 +7,8 @@ export default async function TestimonialsSection() {
   const testimonials = await response.json();
 
   return (
-    <main className="col-full">
+    <section className="col-[content-start/content-end] items-center justify-center mt-10 gap-4">
       <Testimonials_pag testimonials={testimonials} />
-    </main>
+    </section>
   );
 }

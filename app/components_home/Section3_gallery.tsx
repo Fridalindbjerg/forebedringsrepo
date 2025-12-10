@@ -15,11 +15,11 @@ const Section3_Gallery = async () => {
   }
 
   return (
-    <div className="max-w-full">
+    <section className="col-[full-start/full-end]">
       <Suspense fallback={"Loading..."}>
         <Section3_popup gallery={gallery} />
       </Suspense>
-    </div>
+    </section>
   );
 };
 

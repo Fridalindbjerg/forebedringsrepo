@@ -14,12 +14,11 @@ import Testimonials from "./components_home/Testimonials";
 
 export default function HomePage() {
   return (
-    <div>
+    <main className="grid grid-cols-subgrid col-[full-start/full-end]">
       <Section3_Gallery />
-      <Index_h2 text="Latest video" />
       <Latestvideo />
       <Testimonials />
       <EmailSub />
-    </div>
+    </main>
   );
 }

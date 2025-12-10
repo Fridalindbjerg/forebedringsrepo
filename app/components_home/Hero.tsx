@@ -36,7 +36,7 @@ export default function HomePage() {
         </div>
       }
     >
-      <section className="w-screen h-170 bg-cover bg-center bg-no-repeat flex items-center justify-center" style={{ backgroundImage: `url(${backgroundImage})` }}>
+      <section className="col-[full-start/full-end] h-170 bg-cover bg-center bg-no-repeat flex items-center justify-center" style={{ backgroundImage: `url(${backgroundImage})` }}>
         {/* Content to be loaded: Udkommenteres for at fjerne delay*/}
         {/* <LoadContent /> */}
 
