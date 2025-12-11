@@ -5,20 +5,35 @@ import EmailSub from "@/app/components_home/Section8_email_sub";
 import Banner from "@/app/components_home/Banner";
 import Pagination from "./components/pagination";
 
-export default async function Blogposts({ searchParams }: { searchParams?: { page?: string } }) {
-  // læs side fra url, sæt default til side 1
-  const currentPage = Math.max(1, Number(searchParams?.page) || 1);
+// export default async function Blogposts({ searchParams }: { searchParams?: { page?: string } }) {
+// læs side fra url, sæt default til side 1
+// const currentPage = Math.max(1, Number(searchParams?.page) || 1);
 
-  // bestemmer antal posts per side
+// // bestemmer antal posts per side
+// const postsPerPage = 3;
+
+// fetch data på almindelig vis, som vi plejer i undervisning
+// vi indsætter ${currentPage} og ${postsPerPage} i url'en for at paginere.
+// const response = await fetch(`http://localhost:4000/blogposts?embed=comments&page=${currentPage}&limit=${postsPerPage}&sort=id&order=desc`, { cache: "no-store" });
+// const posts = await response.json();
+
+export default async function Blogposts({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>; // <-- note Promise here
+}) {
+  const sp = await searchParams; // <-- unwrap
+  const currentPage = Math.max(1, Number(sp?.page) || 1);
+
   const postsPerPage = 3;
+  const url = `http://localhost:4000/blogposts?embed=comments&page=${currentPage}&limit=${postsPerPage}&sort=id&order=desc`;
+  const response = await fetch(url, { cache: "no-store" });
 
-  // fetch data på almindelig vis, som vi plejer i undervisning
-  // vi indsætter ${currentPage} og ${postsPerPage} i url'en for at paginere.
-  const response = await fetch(`http://localhost:4000/blogposts?embed=comments&page=${currentPage}&limit=${postsPerPage}`, { cache: "no-store" });
   const posts = await response.json();
-
   const total = Number(response.headers.get("X-Total-Count") || 0);
   const totalPages = Math.max(1, Math.ceil(total / postsPerPage));
+
+  console.log("TOTAL COUNT HEADER:", response.headers.get("X-Total-Count"));
 
   return (
     <main className="col-[full-start/full-end] grid grid-cols-subgrid my-8">
@@ -69,7 +84,7 @@ export default async function Blogposts({ searchParams }: { searchParams?: { pag
               <span>/</span>
               <p>{post.comments?.length ?? 0} comments</p>
               <span>/</span>
-              <p>date: NA</p>
+              <p>{post.date}</p>
             </div>
 
             <p className="line-clamp-6">{post.content}</p>
