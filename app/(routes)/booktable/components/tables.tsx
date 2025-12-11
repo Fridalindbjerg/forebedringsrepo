@@ -82,8 +82,6 @@ export default function Tables({ onPick, reservedTables }: { onPick: (n: number)
       <div className="grid gap-4 [grid-template-columns:repeat(auto-fill,_minmax(180px,_1fr))]">
         {tableArr.map((table, id) => {
           const isReserved = reservedTables.find((res) => {
-            console.log("isReserved:", isReserved);
-
             return res.table == table.number;
           });
 

@@ -20,7 +20,6 @@ type FormFields = {
 
 // test om vi kan bruge formfields efter data:
 export default function Form({ data: data }: { data: Array<{ id: number; name: string; tablenumber: number; date: string; email: string; password: string; guests: number; phone: number; comments: string }> }) {
-
   // brug useState til...
   const [selectedDate, setSelectedDate] = useState<Number | null>(null);
 
@@ -39,13 +38,29 @@ export default function Form({ data: data }: { data: Array<{ id: number; name: s
   } = useForm<FormFields>();
 
   // her opretter vi vores onSubmit som håndterer det der sker når formen bliver submitted
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormFields> = async (data) => {
+    // Send POST til serveren for at oprette en ny reservation
+    const res = await fetch("http://localhost:4000/reservations", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: data.name,
+        email: data.email,
+        table: String(data.tablenumber),
+        guests: String(data.guests),
+        // <input type="date"> giver "YYYY-MM-DD" — vi sætter et standard tidspunkt (20:00:00Z) som i dit eksempel
+        date: new Date(data.date + "T20:00:00.000Z").toISOString(),
+        phone: String(data.phone),
+        comments: data.comments,
+      }),
+    });
+    // Vent på serverens svar – reservationen kommer nu tilbage med ID genereret af serveren
+    const createdReservation = await res.json();
+    console.log("Created reservation:", createdReservation);
   };
 
-
   // her laver vi en funktion for handlePickTable, n = det tal (bordnummer), der sendes ind, skal være number.
-  // 
+  //
   const handlePickTable = (n: number) => {
     // setValue kommer fra hooksfrom, der ændrer værdien af et bestemt felt i formularen
     // shouldValidate: Efter værdien ændres, skal react-hook-form køre validering på feltet.
@@ -59,7 +74,7 @@ export default function Form({ data: data }: { data: Array<{ id: number; name: s
 
   return (
     <>
-    {/* tilføjet onPick som kører handlePickedTable */}
+      {/* tilføjet onPick som kører handlePickedTable */}
       <Tables onPick={handlePickTable} reservedTables={reservations} />
 
       <h1 className="font-medium leading-none uppercase text-3xl  my-2.5 text-white">Book a table</h1>
@@ -89,19 +104,25 @@ export default function Form({ data: data }: { data: Array<{ id: number; name: s
           type="date"
           placeholder="Select Date"
           {...register("date", {
-
             // onChange fanger datoen der bliver klikket på, så vi kun får dagen (getUTCDate).
 
             onChange: (e) => setSelectedDate(new Date(e.target.value).getUTCDate()),
             required: "Date is required",
             // BEMÆRK SKAL ÆNDRES VIGTIG!!!
-            validate: (value) => /\p{L}{2,}/u.test(value) || "You must choose a date",
+            validate: (value) => {
+              // godkend hvis den kan parses og er i format YYYY-MM-DD
+              return !Number.isNaN(Date.parse(value)) || "You must choose a valid date";
+            },
           })}
         />
+        {errors.date && <div className="text-white">{errors.date.message}</div>}
 
         {/* ret nedenstående error message */}
 
-        {errors.tablenumber && <div className="text-white">{errors.tablenumber.message}</div>}
+        {/* {errors.tablenumber && <div className="text-white">{errors.tablenumber.message}</div>} */}
+        
+        
+        
         <input
           className="border-white border px-2 py-2  w-full"
           type="text"
@@ -150,9 +171,9 @@ export default function Form({ data: data }: { data: Array<{ id: number; name: s
 
         <textarea className="border-white border px-2 py-2  h-36 resize-none md:col-span-2" placeholder="Your Comment" {...register("comments")} />
 
-          {/*  VIGTIGT HUSK TILFØJ SUBMIT SUCCESS BESKED */}
+        {/*  VIGTIGT HUSK TILFØJ SUBMIT SUCCESS BESKED */}
         <div className="md:col-span-2 flex justify-end">
-          <Button text="Reserve" />
+          <Button text="Reserve" type="submit" />
         </div>
       </form>
     </>

@@ -1,8 +1,9 @@
 type Props = {
   text: string;
+  type?: "button" | "submit" | "reset";
 };
 
-const Button = ({ text }: Props) => {
+const Button = ({ text, type }: Props) => {
   return (
     <button
       className="px-6 py-3
@@ -12,6 +13,7 @@ const Button = ({ text }: Props) => {
         bg-transparent
         transition-colors duration-200
         hover:bg-white hover:text-black"
+      type={type}
     >
       {text}
     </button>
