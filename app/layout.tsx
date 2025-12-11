@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import { Ubuntu } from "next/font/google";
 import "./globals.css";
+import { FaTwitter } from "react-icons/fa";
+import { FaFacebookF } from "react-icons/fa6";
+import { GrSnapchat } from "react-icons/gr";
+import { FaInstagram } from "react-icons/fa";
 import Link from "next/link";
-// import Header from "./Header";
-
+import Image from "next/image";
+import Header from "./components_home/Header";
+import Hero from "./components_home/Hero";
 
 const ubuntu = Ubuntu({
   variable: "--font-poppins",
@@ -24,9 +29,115 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${ubuntu.variable}  antialiased`}>
+        
+          <Hero />
+        
+       
+          <Header />
+        
+        {/* Hvis vi er på forsiden, vis Hero, ellers ikke */}
         {/* <Header /> */}
+
+
         {children}
 
+        <footer className="relative col-[full-start/full-end] bg-transparent py-12">
+          {/* Baggrund */}
+          <div className="absolute inset-0 bg-cover bg-center -z-10" style={{ backgroundImage: `url("/assets/bg/footerbg.jpg")` }} />
+          <div className="absolute inset-0 bg-black opacity-90 -z-10"></div>
+
+          {/* Footer content */}
+          <section className="relative w-full max-w-[1200px] mx-auto text-white grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-8 text-center md:text-left" style={{ gridTemplateRows: "5rem auto 5rem 10rem" }}>
+            {/* Logo */}
+            <div className="flex items-center justify-center md:justify-start col-auto row-auto md:col-1 md:row-start-1">
+              <img src="/assets/icon/Logo_main.svg" alt="Footer Logo" />
+            </div>
+
+            {/* LOCATION + OPENING HOURS */}
+            <div className="col-auto row-auto md:col-1 md:row-start-2 md:row-span-2 flex flex-col gap-5">
+              <div>
+                <h3 className="text-(--pink) font-semibold">LOCATION</h3>
+                <p>
+                  Kompagnistræde 278 <br /> 1265 Købehavn K
+                </p>
+              </div>
+              <div>
+                <h3 className="text-(--pink) font-semibold">OPENING HOURS</h3>
+                <p>
+                  WED - THU 10:30 PM TO 3 AM <br /> SAT - SUN: 11 PM TO 5 AM
+                </p>
+              </div>
+            </div>
+
+            {/* RECENT POSTS */}
+            <div className="hidden md:flex items-center md:col-2 md:row-start-1">
+              <h3 className="text-(--pink) font-semibold">RECENT POSTS</h3>
+            </div>
+            <div className="col-auto row-auto hidden md:flex md:col-2 md:row-start-2 gap-5">
+              <img src="/assets/content-img/recent_post1.jpg" className="w-20 h-auto" alt="Recent post one" />
+              <div>
+                <p>
+                  Lorem Ipsum is simply dummy text <br /> of the printing and typesetting.
+                </p>
+                <p className="text-(--pink) pt-2">April 17, 2018</p>
+              </div>
+            </div>
+            <div className="col-auto row-auto hidden md:flex md:col-2 md:row-start-3 gap-5">
+              <img src="/assets/content-img/recent_post2.jpg" className="w-20 h-auto" alt="Recent posts 2" />
+              <div>
+                <p>
+                  Lorem Ipsum is simply dummy text <br /> of the printing and typesetting.
+                </p>
+                <p className="text-(--pink) pt-2">April 17, 2018</p>
+              </div>
+            </div>
+
+            {/* RECENT TWEETS */}
+            <div className="hidden md:flex items-center md:col-3 md:row-start-1">
+              <h3 className="text-(--pink) font-semibold">RECENT TWEETS</h3>
+            </div>
+            <div className="col-auto row-auto hidden md:flex md:col-start-3 md:row-start-2 gap-2">
+              <FaTwitter className="text-(--pink)" />
+              <div>
+                <p>
+                  It is a long established fact that a reader <br /> will be distracted by the readable...
+                </p>
+                <p className="text-(--pink) pt-2">5 hours ago</p>
+              </div>
+            </div>
+            <div className="col-auto row-auto hidden md:flex md:col-start-3 md:row-start-3 gap-2">
+              <FaTwitter className="text-(--pink)" />
+              <div>
+                <p>
+                  It is a long established fact that a reader <br /> will be distracted by the readable...
+                </p>
+                <p className="text-(--pink) pt-2">5 hours ago</p>
+              </div>
+            </div>
+
+            {/* Footer bottom */}
+            <div className="order-2 md:order-1 col-auto row-auto md:col-1 md:row-start-4 self-end md:self-end">
+              <p>Night Club PSD Template - All Rights Reserved</p>
+            </div>
+            <div className="order-1 md:order-2 col-auto row-auto space-y-4 text-center md:col-2 md:row-start-4 md:self-end">
+              <p>Stay Connected With Us</p>
+              <div className="flex justify-center gap-4">
+                <div className="flex items-center justify-center border border-white w-8 h-8">
+                  <FaFacebookF />
+                </div>
+                <div className="flex items-center justify-center border border-white w-8 h-8">
+                  <GrSnapchat />
+                </div>
+                <div className="flex items-center justify-center border border-white w-8 h-8">
+                  <FaInstagram />
+                </div>
+              </div>
+            </div>
+            <div className="order-3 col-auto row-auto space-y-4 text-center md:col-3 md:row-start-4 md:self-end">
+              <p>Copyright © NightClub</p>
+            </div>
+          </section>
+        </footer>
       </body>
     </html>
   );
