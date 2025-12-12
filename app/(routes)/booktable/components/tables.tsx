@@ -26,7 +26,7 @@ export default function Tables({ onPick, reservedTables }: { onPick: (n: number)
     {
       number: 1,
       img: "/assets/table/table_1.png",
-      isReserved: false,
+      isReserved: true,
     },
     {
       number: 2,
@@ -55,7 +55,7 @@ export default function Tables({ onPick, reservedTables }: { onPick: (n: number)
     },
     {
       number: 7,
-      img: "/assets/table/table_2.png",
+      img: "/assets/table/table_1.png",
       isReserved: true,
     },
     {
@@ -73,27 +73,27 @@ export default function Tables({ onPick, reservedTables }: { onPick: (n: number)
       img: "/assets/table/table_3.png",
       isReserved: true,
     },
-     {
+    {
       number: 11,
       img: "/assets/table/table_1.png",
       isReserved: true,
     },
-     {
+    {
       number: 12,
       img: "/assets/table/table_1.png",
       isReserved: true,
     },
-     {
+    {
       number: 13,
       img: "/assets/table/table_2.png",
       isReserved: true,
     },
-     {
+    {
       number: 14,
       img: "/assets/table/table_1.png",
       isReserved: true,
     },
-     {
+    {
       number: 15,
       img: "/assets/table/table_3.png",
       isReserved: true,
@@ -101,22 +101,18 @@ export default function Tables({ onPick, reservedTables }: { onPick: (n: number)
   ];
 
   return (
-    <div className="grid grid-cols-3 lg:grid-cols-5 gap-4">
-    
+    <div className="grid grid-cols-3 md:grid-cols-5 gap-4 place-items-center">
+      {tableArr.map((table, id) => {
+        const isReserved = reservedTables.find((res) => {
+          return res.table == table.number;
+        });
 
-        {tableArr.map((table, id) => {
-          const isReserved = reservedTables.find((res) => {
-            return res.table == table.number;
-          });
-          
-          return <Table key={id} number={table.number} image={table.img} onPick={onPick} disabled={Boolean(isReserved)} 
-          />;
-        })}
-
-    
-     
+        return <Table key={id} number={table.number} image={table.img} onPick={onPick} disabled={Boolean(isReserved)} />;
+      })}
     </div>
   );
 }
 
-{/* <div className="grid gap-4 space-between [grid-template-columns:repeat(auto-fill,_minmax(200px,_1fr))]"> */}
+{
+  /* <div className="grid gap-4 space-between [grid-template-columns:repeat(auto-fill,_minmax(200px,_1fr))]"> */
+}
