@@ -60,9 +60,9 @@ export default function Comments({ postId, initialComments = [] }: CommentsProps
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 mt-10">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 ">
       {/* Liste over kommentarer */}
-      <div className="mt-6 flex flex-col gap-6">
+      <div className="flex flex-col gap-6">
         {comments.map((comment, index) => (
           <div key={index} className="flex flex-col gap-2">
             <strong>{comment.name}</strong> {/* Navn på kommentator */}
