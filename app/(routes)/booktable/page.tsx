@@ -1,4 +1,5 @@
 import Form from "./components/form";
+import Banner from "@/app/components_home/Banner";
 
 export default async function Page() {
   const reservations = await fetch("http://localhost:4000/reservations").then((res) => res.json());
@@ -11,6 +12,7 @@ export default async function Page() {
 
   return (
     <main className="[grid-column:content-start/content-end]">
+        <Banner text="Book table" />
       <Form data={reservations} />
     </main>
   );

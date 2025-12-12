@@ -12,8 +12,11 @@ const Button = ({ text, type }: Props) => {
         border-t border-b border-white
         bg-transparent
         transition-colors duration-200
-        hover:bg-white hover:text-black"
+        hover:bg-white hover:text-black hover:cursor-pointer
+         active:bg-white active:text-black
+    focus:bg-white focus:text-black"
       type={type}
+
     >
       {text}
     </button>
