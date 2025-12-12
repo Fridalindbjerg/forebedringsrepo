@@ -1,6 +1,6 @@
-import { div } from "framer-motion/client";
 import Comments from "./components/comments";
 import Button from "../../../button";
+import Image from "next/image";
 
 interface BlogParams {
   params: {
@@ -21,7 +21,13 @@ const Blog = async ({ params }: BlogParams) => {
   return (
     <div className="grid grid-cols-subgrid col-[full-start/full-end]">
       <div className="grid col-[full-start/full-end] md:col-[content-start/content-end]">
-        <img src={singlepost.asset.url} alt={singlepost.title} className="w-full h-auto object-cover" />
+        <Image
+          src={singlepost.asset.url} // URL til billedet
+          alt={singlepost.title} // altid en alt-tekst
+          width={1920} // sæt ønsket bredde
+          height={1080} // sæt ønsket højde
+          className="w-full h-auto object-cover"
+        />{" "}
       </div>
 
       <div className="gap-4 col-[content-start/content-end] mx-5 my-10">

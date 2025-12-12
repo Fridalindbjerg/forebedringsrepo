@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const Header = () => {
   const pathname = usePathname();
@@ -25,7 +26,12 @@ const Header = () => {
         <div className="w-full max-w-[1200px] mx-auto px-8 flex justify-between items-center">
           <div>
             <a href="/">
-              <img src="/assets/icon/Logo_main.svg" alt="Night Club Logo" />
+              <Image
+                src="/assets/icon/Logo_main.svg"
+                alt="Night Club Logo"
+                width={120} // juster bredde efter behov
+                height={60} // juster højde efter behov
+              />
             </a>
           </div>
           {/* liste over menupunkter, hvor hvert punkt er et link, og hvis dets href matcher den aktuelle side (pathname), vises et billede under det for at indikere, at det er aktivt. */}
@@ -42,7 +48,15 @@ const Header = () => {
                   {item.label}
                 </a>
                 {/* Hvis den aktuelle rute matcher linket → vis den lille pink underline-grafik */}
-                {pathname === item.href && <img src="/assets/bottom_line2.png" alt="Bottom line" className="mt-1 w-20" />}
+                {pathname === item.href && (
+                  <Image
+                    src="/assets/bottom_line2.png"
+                    alt="Bottom line"
+                    width={80} // px, svarer til w-20
+                    height={4} // px, svarer til h-1
+                    className="mt-1"
+                  />
+                )}
               </li>
             ))}
           </ul>

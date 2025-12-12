@@ -4,6 +4,7 @@ import Button from "../../button";
 import EmailSub from "@/app/components_home/Section8_email_sub";
 import Banner from "@/app/components_home/Banner";
 import Pagination from "./components/pagination";
+import Image from "next/image";
 
 // export default async function Blogposts({ searchParams }: { searchParams?: { page?: string } }) {
 // læs side fra url, sæt default til side 1
@@ -67,7 +68,13 @@ export default async function Blogposts({
             even:md:[&>*:last-child]:col-[content-start/middle]"
         >
           <div className="col-[full-start/full-end]">
-            <img src={post.asset?.url} alt={post.title} className="w-full h-[360px] md:h-[480px] object-cover" />
+            <Image
+              src={post.asset?.url || ""} // Sørg for fallback, hvis url er undefined
+              alt={post.title || "Post image"} // altid alt-tekst
+              width={1920} // bredde (juster efter behov)
+              height={1080} // højde (juster efter behov)
+              className="w-full h-[360px] md:h-[480px] object-cover"
+            />
           </div>
           <div className="mx-5 my-10 col-[content-start/content-end]space-y-4">
             <h2 className="text-xl font-medium uppercase">{post.title}</h2>
