@@ -6,6 +6,7 @@ import Latestvideo from "./components_home/Latestvideo";
 import EmailSub from "./components_home/Section8_email_sub";
 import Testimonials from "./components_home/Testimonials";
 import Section2_events from "./components_home/Section2_events";
+import Recentblog from "./components_home/Recentblog";
 import { Suspense } from "react";
 
 // Timer på loading så den er synlig: Udkommenteres for at fjerne delay
@@ -29,6 +30,9 @@ export default function HomePage() {
       </Suspense>
     {/* LÆG RECENT BLOG IND I SUSPENSE !!!!! */}
       <EmailSub />
+      <Suspense fallback={<div>Loading recent blog...</div>}>
+        <Recentblog />
+      </Suspense>
     </main>
   );
 }

@@ -1,4 +1,5 @@
 import Form from "./components/form";
+import Banner from "@/app/components_home/Banner";
 
 // Server component (async)
 async function ReservationsServer() {
@@ -13,7 +14,9 @@ import { Suspense } from "react";
 
 export default function Page() {
   return (
+
     <main className="col-[content-start/content-end]">
+        <Banner text="Book table" />
       <Suspense fallback={<p>Loading reservations...</p>}>
         <ReservationsServer />
       </Suspense>
