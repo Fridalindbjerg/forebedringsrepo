@@ -10,7 +10,7 @@ export default async function Page() {
   // fetch api (reservations), filtrer resultatet baseret på valgt dato
 
   return (
-    <main className="[grid-column:content-start/content-end]">
+    <main className="col-[content-start/content-end]">
       <Form data={reservations} />
     </main>
   );
