@@ -1,10 +1,18 @@
-import { div } from "framer-motion/client";
 import Comments from "./components/comments";
+import Button from "../../../button";
+import Image from "next/image";
+import { Suspense } from "react";
 import Banner from "@/app/components_home/Banner"
 
 
 
-const Blog = async ({ params }) => {
+interface BlogParams {
+  params: {
+    id: string;
+  };
+}
+
+const Blog = async ({ params }: BlogParams) => {
   const { id } = await params;
 
   const response = await fetch(`http://localhost:4000/blogposts/${id}?embed=comments`, { cache: "no-store" });
@@ -15,6 +23,7 @@ const Blog = async ({ params }) => {
   const count = comments.length;
 
   return (
+
     <main 
     className="grid grid-cols-subgrid col-[full-start/full-end]">
     <Banner text="Blog post"/>
@@ -22,8 +31,13 @@ const Blog = async ({ params }) => {
     <section
     className="grid col-[full-start/full-end] md:col-[content-start/content-end]">
      
-        <img src={singlepost.asset.url} alt={singlepost.title} className="w-full h-auto object-cover" />
-     
+  <Image
+          src={singlepost.asset.url} // URL til billedet
+          alt={singlepost.title} // altid en alt-tekst
+          width={1920} // sæt ønsket bredde
+          height={1080} // sæt ønsket højde
+          className="w-full h-auto object-cover"
+        />     
 
       <div className="gap-4">
         <h2 className="text-xl font-semibold">{singlepost.title}</h2>
@@ -48,4 +62,12 @@ const Blog = async ({ params }) => {
   );
 };
 
-export default Blog;
+export default function Page({ params }: BlogParams) {
+  return (
+    <main className="col-[content-start/content-end]">
+      <Suspense fallback={<p>Loading Blog...</p>}>
+        <Blog params={params} />
+      </Suspense>
+    </main>
+  );
+}

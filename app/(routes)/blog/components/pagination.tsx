@@ -18,11 +18,10 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function Pagination({ totalPages }: { totalPages: number }) {
+export default function Pagination({ currentPage, totalPages }: { currentPage: number; totalPages: number }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get("page")) || 1;
-  
+  // const currentPage = Number(searchParams.get("page")) || 1;
 
   const createPageURL = (pageNumber: number | string) => {
     const params = new URLSearchParams(searchParams);
@@ -51,7 +50,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
           // createPageURL laver et link til den side vi ønsker at gå til.
 
           // der hvor der står ):) er en "tenernary operator" - en kort form for en if-else sætning. der kunne ligeså godt stå if (page === currentPage) { ... } else { ... }.
-          <span key={page} aria-current="page" className="pb-[2px] border-b border-white/70">
+          <span key={page} aria-current="page" className="pb-0.5 border-b border-white/70">
             {page}
           </span>
         ) : (
@@ -69,8 +68,6 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
       ) : (
         <span className="ml-2 opacity-40 select-none">næste &gt;</span>
       )}
-
-      
     </nav>
   );
 }

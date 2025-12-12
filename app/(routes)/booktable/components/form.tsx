@@ -7,26 +7,39 @@ import Tables from "./tables";
 import Button from "@/app/button";
 
 // definer type (KUN i typescript) for form felter
-type FormFields = {
+interface Reservation {
+  id: number;
   name: string;
-  tablenumber: number;
+  table: number;
   date: string;
   email: string;
   password: string;
   guests: number;
   phone: number;
   comments: string;
-};
+}
 
-// test om vi kan bruge formfields efter data:
-export default function Form({ data: data }: { data: Array<{ id: number; name: string; tablenumber: number; date: string; email: string; password: string; guests: number; phone: number; comments: string }> }) {
+// Formularen har ikke id, så vi kan bruge Omit for at fjerne id feltet fra formfieldstypen
+type FormFields = Omit<Reservation, "id">;
+
+export default function Form({ data }: { data: Reservation[] }) {
   // brug useState til...
-  const [selectedDate, setSelectedDate] = useState<Number | null>(null);
+
+  // const [selectedDate, setSelectedDate] = useState<Number | null>(null);
+
+  const [selectedDate, setSelectedDate] = useState<string>("");
 
   // i const reservations filtrerer vi data for én eneklt reservation hvor vi finder datoen (uagtet af tidszone - getUTCDate) der matcher den valgte dato fra form
-  const reservations = data.filter((res) => new Date(res.date).getUTCDate() == selectedDate);
+  // const reservations = data.filter((res) => new Date(res.date).getUTCDate() == selectedDate);
 
+  const reservations = selectedDate ? data.filter((res) => res.date.startsWith(selectedDate)) : [];
   console.log(reservations);
+
+  const formattedReservations = reservations.map((res) => ({
+    id: res.id,
+    table: Number(res.table), // konverter til number, men behold feltet "table"
+    date: res.date,
+  }));
 
   // her skriver vi de ting ind som vi skal bruge i forms hook, for at håndtere validering og indsendelse af form
   const {
@@ -51,7 +64,7 @@ export default function Form({ data: data }: { data: Array<{ id: number; name: s
       body: JSON.stringify({
         name: data.name,
         email: data.email,
-        table: String(data.tablenumber),
+        table: String(data.table),
         guests: String(data.guests),
         // <input type="date"> giver "YYYY-MM-DD" — vi sætter et standard tidspunkt (20:00:00Z) som i dit eksempel
         date: new Date(data.date + "T20:00:00.000Z").toISOString(),
@@ -82,16 +95,16 @@ export default function Form({ data: data }: { data: Array<{ id: number; name: s
     // shouldValidate: Efter værdien ændres, skal react-hook-form køre validering på feltet.
     // shouldDirty: dirty= bruger har ændret feltets oprindelige værdi = at forhindre formularen i at blive sendt, hvis intet er ændret.
 
-    // kort sagt -> sæt tablenumber ti n -> marker felt som ændret af bruger -> kør validering på feltet
-    setValue("tablenumber", n, { shouldValidate: true, shouldDirty: true });
+    // kort sagt -> sæt table ti n -> marker felt som ændret af bruger -> kør validering på feltet
+    setValue("table", n, { shouldValidate: true, shouldDirty: true });
   };
 
-  const picked = watch("tablenumber");
+  const picked = watch("table");
 
   return (
-    <section className="cols-[content-start/content-end]">
+    <section className="col-[content-start/content-end]">
       {/* tilføjet onPick som kører handlePickedTable */}
-      <Tables onPick={handlePickTable} reservedTables={reservations} />
+      <Tables onPick={handlePickTable} reservedTables={formattedReservations} />
 
       <h1 className="font-medium leading-none uppercase text-3xl  my-2.5 text-white">Book a table</h1>
       <form className="grid grid-cols-1 md:grid-cols-2 gap-4 text-white placeholder-white" onSubmit={handleSubmit(onSubmit)}>
@@ -112,7 +125,7 @@ export default function Form({ data: data }: { data: Array<{ id: number; name: s
 
         {/* Table number */}
         <div className="flex flex-col gap-1">
-          {errors.tablenumber ? <span className="text-red-500 text-sm">{errors.tablenumber.message}</span> : <span className="h-4"></span>}
+          {errors.table ? <span className="text-red-500 text-sm">{errors.table.message}</span> : <span className="h-4"></span>}
 
           <input
             className="border-white border px-2 py-2 w-full"
@@ -120,7 +133,7 @@ export default function Form({ data: data }: { data: Array<{ id: number; name: s
             readOnly
             placeholder="Click a table above"
             value={picked ?? ""}
-            {...register("tablenumber", {
+            {...register("table", {
               required: "Please pick a table",
             })}
           />
@@ -134,7 +147,7 @@ export default function Form({ data: data }: { data: Array<{ id: number; name: s
             className="border-white border px-2 py-2 w-full [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:cursor-pointer"
             type="date"
             {...register("date", {
-              onChange: (e) => setSelectedDate(new Date(e.target.value).getUTCDate()),
+              onChange: (e) => setSelectedDate(e.target.value),
               required: "Date is required",
               validate: (value) => !Number.isNaN(Date.parse(value)) || "You must choose a valid date",
             })}

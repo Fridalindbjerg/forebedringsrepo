@@ -18,10 +18,17 @@ import { Suspense } from "react";
 export default function HomePage() {
   return (
     <main className="grid grid-cols-subgrid col-[full-start/full-end]">
-      <Section2_events />
-      <Section3_Gallery />
+      <Suspense fallback={<div>Loading Events of the month...</div>}>
+        <Section2_events />
+      </Suspense>
+      <Suspense fallback={<div>Loading gallery...</div>}>
+        <Section3_Gallery />
+      </Suspense>
       <Latestvideo />
-      <Testimonials />
+      <Suspense fallback={<div>Loading testimonials...</div>}>
+        <Testimonials />
+      </Suspense>
+    {/* LÆG RECENT BLOG IND I SUSPENSE !!!!! */}
       <EmailSub />
       <Suspense fallback={<div>Loading recent blog...</div>}>
         <Recentblog />
