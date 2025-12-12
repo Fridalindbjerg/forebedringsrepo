@@ -1,6 +1,7 @@
 import Comments from "./components/comments";
 import Button from "../../../button";
 import Image from "next/image";
+import { Suspense } from "react";
 
 interface BlogParams {
   params: {
@@ -52,4 +53,12 @@ const Blog = async ({ params }: BlogParams) => {
   );
 };
 
-export default Blog;
+export default function Page({ params }: BlogParams) {
+  return (
+    <main className="col-[content-start/content-end]">
+      <Suspense fallback={<p>Loading Blog...</p>}>
+        <Blog params={params} />
+      </Suspense>
+    </main>
+  );
+}

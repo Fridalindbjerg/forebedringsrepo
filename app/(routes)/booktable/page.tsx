@@ -1,17 +1,22 @@
 import Form from "./components/form";
 
-export default async function Page() {
-  const reservations = await fetch("http://localhost:4000/reservations").then((res) => res.json());
+// Server component (async)
+async function ReservationsServer() {
+  const res = await fetch("http://localhost:4000/reservations", { cache: "no-store" });
+  const reservations = await res.json();
 
-  // brug use state til at gemme den valgte dato fra form
-  // brug det der er gemt i selected state til at fetche den dato fra api'en
-  // lave et array af de borde der er booket den dag og mappe
+  return <Form data={reservations} />;
+}
 
-  // fetch api (reservations), filtrer resultatet baseret på valgt dato
+// Page component (ikke async)
+import { Suspense } from "react";
 
+export default function Page() {
   return (
     <main className="col-[content-start/content-end]">
-      <Form data={reservations} />
+      <Suspense fallback={<p>Loading reservations...</p>}>
+        <ReservationsServer />
+      </Suspense>
     </main>
   );
 }

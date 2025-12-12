@@ -5,6 +5,7 @@ import EmailSub from "@/app/components_home/Section8_email_sub";
 import Banner from "@/app/components_home/Banner";
 import Pagination from "./components/pagination";
 import Image from "next/image";
+import { Suspense } from "react";
 
 // export default async function Blogposts({ searchParams }: { searchParams?: { page?: string } }) {
 // læs side fra url, sæt default til side 1
@@ -30,7 +31,17 @@ type Post = {
   comments?: { id: number }[];
 };
 
-export default async function Blogposts({
+export default function Page({ searchParams }: { searchParams?: { page?: string } }) {
+  return (
+    <main className="col-[content-start/content-end]">
+      <Suspense fallback={<p>Loading Blog...</p>}>
+        <Blogposts searchParams={Promise.resolve(searchParams || {})} />
+      </Suspense>
+    </main>
+  );
+}
+
+async function Blogposts({
   searchParams,
 }: {
   searchParams: Promise<{ page?: string }>; // <-- note Promise here
