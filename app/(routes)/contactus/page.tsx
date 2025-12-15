@@ -1,16 +1,14 @@
 import Banner from "@/app/components_home/Banner";
-import { div, section } from "framer-motion/client";
+import ContactForm from "./components/ContactForm";
 
-const Contactus = () => {
+export default async function Page() {
+    const contactus = await fetch("http://localhost:4000/contact_messages").then((res) => res.json());
+
     return (
-        <main className="
-      col-[full-start/full-end]
-      grid grid-cols-subgrid 
-      my-8 
-    ">
-            <Banner />
+        <main className="[grid-column:content-start/content-end] ">
+            <Banner text="Contact Us" />
+            <ContactForm />
         </main>
     );
 }
 
-export default Contactus;

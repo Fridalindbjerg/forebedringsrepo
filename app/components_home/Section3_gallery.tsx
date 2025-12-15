@@ -1,7 +1,6 @@
 // components/Section3_Gallery.tsx
 import Section3_popup, { Picture } from "./Section3_popup";
 import Index_h2 from "./Index_h2";
-import { Suspense } from "react";
 
 const Section3_Gallery = async () => {
   // Server-side fetch
@@ -16,9 +15,7 @@ const Section3_Gallery = async () => {
 
   return (
     <section className="col-[full-start/full-end]">
-      <Suspense fallback={"Loading..."}>
         <Section3_popup gallery={gallery} />
-      </Suspense>
     </section>
   );
 };
