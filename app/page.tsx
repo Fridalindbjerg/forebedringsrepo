@@ -5,6 +5,7 @@ import Index_h2 from "./components_home/Index_h2";
 import Latestvideo from "./components_home/Latestvideo";
 import EmailSub from "./components_home/Section8_email_sub";
 import Testimonials from "./components_home/Testimonials";
+import Section4_track from "./components_home/Section4_track";
 import Section2_events from "./components_home/Section2_events";
 import Recentblog from "./components_home/Recentblog";
 import { Suspense } from "react";
