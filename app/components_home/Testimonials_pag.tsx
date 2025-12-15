@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaFacebookF, FaTwitter, FaSnapchatGhost } from "react-icons/fa";
+import Image from "next/image";
 
 interface Testimonial {
   id: number;
@@ -25,7 +26,13 @@ export default function TestimonialsCarousel({ testimonials }: Props) {
     <section className="w-full max-w-4xl mx-auto text-center py-10">
       <AnimatePresence mode="wait">
         <motion.div key={testimonials[index].id} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ duration: 0.5 }}>
-          <img src={testimonials[index].asset.url} alt={testimonials[index].name} className="w-32 h-32 mx-auto " />
+          <Image
+            src={testimonials[index].asset.url}
+            alt={testimonials[index].name}
+            width={128} // svarer til w-32
+            height={128} // svarer til h-32
+            className="mx-auto"
+          />{" "}
           <h3 className="mt-4 font-bold uppercase">{testimonials[index].name}</h3>
           <p className="text-lg italic">{testimonials[index].content}</p>
           <div className="flex justify-center gap-4 mt-4">
@@ -49,7 +56,7 @@ export default function TestimonialsCarousel({ testimonials }: Props) {
       </AnimatePresence>
 
       {/* Pagination dots */}
-      <div className="flex justify-center gap-2 mt-4">
+      <div className="flex justify-center gap-2 mt-8">
         {testimonials.map((testimonial, i) => (
           <button key={i} onClick={() => setIndex(i)} className={`w-3 h-3  ${i === index ? "bg-(--pink)" : "bg-white"}`} />
         ))}

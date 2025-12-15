@@ -4,6 +4,7 @@ import { AnimatePresence, motion, usePresenceData, wrap } from "motion/react";
 import { forwardRef, useState, useEffect } from "react";
 import { LuSquareArrowLeft, LuSquareArrowRight } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
+import Image from "next/image";
 
 // TypeScript interface
 export interface Picture {
@@ -79,24 +80,35 @@ export default function GalleryWithFramerModal({ gallery }: Props) {
         {gallery.slice(0, 4).map((pic, i) => (
           <motion.div
             key={pic.id}
-            className="relative group"
-            initial={{ opacity: 0, x: -70 }} // Start udenfor til venstre
-            whileInView={{ opacity: 1, x: 0 }} // Når den er i view, glide til position
-            viewport={{ once: true }} // Animér kun første gang
-            transition={{ duration: 1, delay: i * 0.125 }} // lidt stagger
+            className="relative group w-full h-[250px]" // relative + group + height
+            initial={{ opacity: 0, x: -70 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: i * 0.125 }}
           >
-            <div className=" absolute bottom-0 right-0 w-0 h-0 border-l-30 border-l-transparent border-b-30 border-b-(--pink) opacity-0 transition-opacity duration-300 group-hover:opacity-100 " />
-            <div className=" absolute top-0 left-0 w-0 h-0 border-r-30 border-r-transparent border-t-30 border-t-(--pink) opacity-0 transition-opacity duration-300 group-hover:opacity-100 " />
-            <img src={pic.asset.url} alt={pic.description} className="w-full h-[250px] object-cover cursor-pointer hover:border-y-2 border-(--pink) duration-300" onClick={() => openModal(i)} />
+            {/* Trekanter */}
+            <div className="absolute bottom-0 right-0 w-0 h-0 border-l-30 border-l-transparent border-b-30 border-b-(--pink) opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
+            <div className="absolute top-0 left-0 w-0 h-0 border-r-30 border-r-transparent border-t-30 border-t-(--pink) opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
+
+            {/* Billede */}
+            <div className="w-full h-full relative cursor-pointer hover:border-y-2 border-(--pink) duration-300 z-0" onClick={() => openModal(i)}>
+              <Image src={pic.asset.url} alt={pic.description || "Image"} fill className="object-cover" />
+            </div>
           </motion.div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 ">
         {gallery.slice(4, 7).map((pic, i) => (
-          <motion.div key={pic.id} className="relative group" initial={{ opacity: 0, x: -70 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 1, delay: i * 0.125 }}>
-            <div className=" absolute bottom-0 right-0 w-0 h-0 border-l-30 border-l-transparent border-b-30 border-b-(--pink) opacity-0 transition-opacity duration-300 group-hover:opacity-100 " /> <div className=" absolute top-0 left-0 w-0 h-0 border-r-30 border-r-transparent border-t-30 border-t-(--pink) opacity-0 transition-opacity duration-300 group-hover:opacity-100 " />
-            <img src={pic.asset.url} alt={pic.description} className="w-full h-[250px] object-cover cursor-pointer hover:border-y-2 border-(--pink) duration-300" onClick={() => openModal(i + 4)} />
+          <motion.div key={pic.id} className="relative group w-full h-[250px]" initial={{ opacity: 0, x: -70 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 1, delay: i * 0.125 }}>
+            {/* Trekanter */}
+            <div className="absolute bottom-0 right-0 w-0 h-0 border-l-30 border-l-transparent border-b-30 border-b-(--pink) opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
+            <div className="absolute top-0 left-0 w-0 h-0 border-r-30 border-r-transparent border-t-30 border-t-(--pink) opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
+
+            {/* Billede */}
+            <div className="w-full h-full relative cursor-pointer hover:border-y-2 border-(--pink) duration-300 z-0" onClick={() => openModal(i + 4)}>
+              <Image src={pic.asset.url} alt={pic.description || "Image"} fill className="object-cover" />
+            </div>
           </motion.div>
         ))}
       </div>
@@ -148,11 +160,25 @@ const Slide = forwardRef(function Slide({ picture, custom }: { picture: Picture;
   //   // Den bruges til at vide om vi skal animere venstre→højre eller højre→venstre.
   const direction = usePresenceData();
   return (
-    <motion.div ref={ref} initial={{ opacity: 0, x: direction * 50 }} animate={{ opacity: 1, x: 0, transition: { type: "spring", bounce: 0.3 } }} exit={{ opacity: 0, x: direction * -50 }} custom={custom} className="max-w-[80vw] max-h-[80vh] w-auto h-auto overflow-hidden rounded-lg">
-      <div className="border-b-2 border-(--pink) relative">
-        <div className="absolute bottom-0 right-0 w-0 h-0 border-l-30 border-l-transparent border-b-30 border-b-(--pink)" />
+    // <motion.div ref={ref} initial={{ opacity: 0, x: direction * 50 }} animate={{ opacity: 1, x: 0, transition: { type: "spring", bounce: 0.3 } }} exit={{ opacity: 0, x: direction * -50 }} custom={custom} className="max-w-[80vw] max-h-[80vh] w-auto h-auto overflow-hidden ">
+    //   <div className="border-b-2 border-(--pink) relative">
+    //     <div className="absolute bottom-0 right-0 w-0 h-0 border-l-30 border-l-transparent border-b-30 border-b-(--pink)" />
 
-        <img src={picture.asset.url} alt={picture.description} className="w-full h-full object-contain" />
+    //     <img src={picture.asset.url} alt={picture.description} className="w-full h-full object-contain" />
+    //   </div>
+    // </motion.div>
+    <motion.div ref={ref} initial={{ opacity: 0, x: direction * 50 }} animate={{ opacity: 1, x: 0, transition: { type: "spring", bounce: 0.3 } }} exit={{ opacity: 0, x: direction * -50 }} custom={custom} className="max-w-[80vw] max-h-[80vh] w-auto h-auto overflow-hidden">
+      <div className="border-b-2 border-(--pink) relative w-full h-full">
+        <div className="relative w-full h-full">
+          <div className="absolute bottom-0 right-0 w-0 h-0 border-l-30 border-l-transparent border-b-30 border-b-(--pink)" />
+          <Image
+            src={picture.asset.url}
+            alt={picture.description}
+            width={800} // px eller dynamisk
+            height={600}
+            className="object-contain"
+          />
+        </div>
       </div>
     </motion.div>
   );

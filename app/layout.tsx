@@ -30,12 +30,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${ubuntu.variable}  antialiased`}>
         <Hero />
+
         <Header />
+
         {/* Hvis vi er på forsiden, vis Hero, ellers ikke */}
         {/* <Header /> */}
+
         {children}
 
-        <footer className="relative col-full bg-transparent py-12">
+        <footer className="relative col-[full-start/full-end] bg-transparent py-12">
           {/* Baggrund */}
           <div className="absolute inset-0 bg-cover bg-center -z-10" style={{ backgroundImage: `url("/assets/bg/footerbg.jpg")` }} />
           <div className="absolute inset-0 bg-black opacity-90 -z-10"></div>
@@ -44,9 +47,8 @@ export default function RootLayout({
           <section className="relative w-full max-w-[1200px] mx-auto text-white grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-8 text-center md:text-left" style={{ gridTemplateRows: "5rem auto 5rem 10rem" }}>
             {/* Logo */}
             <div className="flex items-center justify-center md:justify-start col-auto row-auto md:col-1 md:row-start-1">
-              <img src="/assets/icon/Logo_main.svg" alt="Footer Logo" />
+              <Image src="/assets/icon/Logo_main.svg" alt="Footer Logo" width={100} height={100} />
             </div>
-
             {/* LOCATION + OPENING HOURS */}
             <div className="col-auto row-auto md:col-1 md:row-start-2 md:row-span-2 flex flex-col gap-5">
               <div>

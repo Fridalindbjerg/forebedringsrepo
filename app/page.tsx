@@ -6,6 +6,9 @@ import Latestvideo from "./components_home/Latestvideo";
 import EmailSub from "./components_home/Section8_email_sub";
 import Testimonials from "./components_home/Testimonials";
 import Section4_track from "./components_home/Section4_track";
+import Section2_events from "./components_home/Section2_events";
+import Recentblog from "./components_home/Recentblog";
+import { Suspense } from "react";
 
 // Timer på loading så den er synlig: Udkommenteres for at fjerne delay
 // async function LoadContent() {
@@ -15,14 +18,22 @@ import Section4_track from "./components_home/Section4_track";
 
 export default function HomePage() {
   return (
-    <main>
-      <Section3_Gallery />
-      <Section4_track />
-      <Index_h2 text="Latest video" />
+    <main className="grid grid-cols-subgrid col-[full-start/full-end]">
+      <Suspense fallback={<div>Loading Events of the month...</div>}>
+        <Section2_events />
+      </Suspense>
+      <Suspense fallback={<div>Loading gallery...</div>}>
+        <Section3_Gallery />
+      </Suspense>
       <Latestvideo />
-
-      <Testimonials />
+      <Suspense fallback={<div>Loading testimonials...</div>}>
+        <Testimonials />
+      </Suspense>
+    {/* LÆG RECENT BLOG IND I SUSPENSE !!!!! */}
       <EmailSub />
+      <Suspense fallback={<div>Loading recent blog...</div>}>
+        <Recentblog />
+      </Suspense>
     </main>
   );
 }
