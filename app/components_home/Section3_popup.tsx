@@ -92,7 +92,7 @@ export default function GalleryWithFramerModal({ gallery }: Props) {
 
             {/* Billede */}
             <div className="w-full h-full relative cursor-pointer hover:border-y-2 border-(--pink) duration-300 z-0" onClick={() => openModal(i)}>
-              <Image src={pic.asset.url} alt={pic.description || "Image"} fill className="object-cover" />
+              <Image src={pic.asset.url} alt={pic.description || "Image"} fill className="object-cover w-full h-auto" />
             </div>
           </motion.div>
         ))}
@@ -107,7 +107,7 @@ export default function GalleryWithFramerModal({ gallery }: Props) {
 
             {/* Billede */}
             <div className="w-full h-full relative cursor-pointer hover:border-y-2 border-(--pink) duration-300 z-0" onClick={() => openModal(i + 4)}>
-              <Image src={pic.asset.url} alt={pic.description || "Image"} fill className="object-cover" />
+              <Image src={pic.asset.url} alt={pic.description || "Image"} fill className="object-cover w-full h-auto" />
             </div>
           </motion.div>
         ))}
@@ -176,7 +176,7 @@ const Slide = forwardRef(function Slide({ picture, custom }: { picture: Picture;
             alt={picture.description}
             width={800} // px eller dynamisk
             height={600}
-            className="object-contain"
+            className="object-contain w-full h-auto"
           />
         </div>
       </div>

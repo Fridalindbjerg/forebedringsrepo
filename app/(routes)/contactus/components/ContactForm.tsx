@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import Button from "@/app/button";
-// definer type (KUN i typescript) for form felter
+// definerer type (KUN i typescript) for form felter
 type FormFields = {
     name: string;
     email: string;
@@ -19,7 +19,11 @@ export default function ContactForm() {
         formState: { errors },
     } = useForm<FormFields>();
 
+    const [buttonText, setButtonText] = useState("Send");
+
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
+        setButtonText("Sending...");
+
         const res = await fetch("http://localhost:4000/contact_messages", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -31,6 +35,17 @@ export default function ContactForm() {
         });
         const createdMessage = await res.json();
         console.log("Created contact message:", createdMessage);
+
+        // klassisk if else til at håndtere respons fra server
+        // hvis server returnerer en fejl, ændres knap tekst til error
+        if (!res.ok) {
+            setButtonText("Error");
+            return;
+        }
+
+        // button tekst ændres til submitted hvis alt er ok (validering + post request)
+        setButtonText("Submitted");
+
         reset();
     };
 
@@ -67,7 +82,7 @@ export default function ContactForm() {
 
                 {/*  VIGTIGT HUSK TILFØJ SUBMIT SUCCESS BESKED */}
                 <div className="flex justify-end">
-                    <Button text="Send" type="submit" />
+                    <Button text={buttonText} type="submit" />
                 </div>
             </form>
         </section>

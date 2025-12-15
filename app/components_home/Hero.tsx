@@ -35,9 +35,11 @@ export default function HomePage() {
           <Image
             src="/assets/loader/madbars.gif"
             alt="Loading..."
-            width={100} // juster efter behov
-            height={100} // juster efter behov
-          />{" "}
+            width={100}
+            height={100}
+            className="w-full h-auto"
+            priority
+          />
         </div>
       }
     >
@@ -61,8 +63,9 @@ export default function HomePage() {
               <Image
                 src="/assets/bottom_line.png"
                 alt="Bottom Line"
-                width={500} // eller passende størrelse
+                width={500}
                 height={50}
+                className="w-full h-auto"
               />
             </motion.div>
           </div>

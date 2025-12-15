@@ -41,8 +41,10 @@ const Header = () => {
             <Image
               src="/assets/icon/Logo_main.svg"
               alt="Night Club Logo"
-              width={120} // juster bredde efter behov
-              height={60} // juster højde efter behov
+              width={120}
+              height={60}
+              className="w-full h-auto"
+              priority
             />
           </a>
         </div>
@@ -64,14 +66,55 @@ const Header = () => {
                 <Image
                   src="/assets/bottom_line2.png"
                   alt="Bottom line"
-                  width={80} // px, svarer til w-20
-                  height={4} // px, svarer til h-1
+                  width={80}
+                  height={4}
+                  style={{ width: "80px", height: "4px" }}
                   className="mt-1"
                 />
               )}
             </li>
           ))}
         </ul>
+        {/* Burger menu: */}
+        <button
+          className="md:hidden text-white text-5xl z-50"
+          onClick={() => setOpen(true)}
+        >
+          ☰
+        </button>
+
+        {/* Mobil fullscreen overlay menu */}
+        {open && (
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center z-50">
+
+            {/* X-Knap */}
+            <button
+              className="absolute top-6 right-6 text-white text-4xl"
+              // false fordi vi lukker menuen og den derfor er setOpen falsk 
+              onClick={() => setOpen(false)}
+            >
+              ✕
+            </button>
+
+            {/* Menu items */}
+            <ul className="flex flex-col text-center gap-10 text-white text-2xl">
+              {/* Looper gennem alle menupunkter fra menuItems-arrayet */}
+              {menuItems.map((item, index) => (
+                <li key={index}>
+                  <a
+                    href={item.href}
+                    // Luk menuen når man klikker på et menupunkt
+                    onClick={() => setOpen(false)}
+                    // Hvis den aktuelle side matcher linkets href → farves det pink, og ellers hvid
+                    className={`${pathname === item.href ? "text-(--pink)" : "text-white"} tracking-wide`}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </header>
   );

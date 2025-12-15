@@ -15,7 +15,8 @@ const Section3_Gallery = async () => {
 
   return (
     <section className="col-[full-start/full-end]">
-        <Section3_popup gallery={gallery} />
+      <Index_h2 text="Night club gallery" />
+      <Section3_popup gallery={gallery} />
     </section>
   );
 };

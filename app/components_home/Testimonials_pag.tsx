@@ -31,7 +31,7 @@ export default function TestimonialsCarousel({ testimonials }: Props) {
             alt={testimonials[index].name}
             width={128} // svarer til w-32
             height={128} // svarer til h-32
-            className="mx-auto"
+            className="mx-aut w-full h-auto"
           />{" "}
           <h3 className="mt-4 font-bold uppercase">{testimonials[index].name}</h3>
           <p className="text-lg italic">{testimonials[index].content}</p>

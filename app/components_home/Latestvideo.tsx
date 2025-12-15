@@ -58,12 +58,12 @@ export default function VideoCarousel() {
                 <div className="flex items-center justify-center gap-5 mt-8">
                     {/* LEFT ARROW */}
                     <button onClick={prev} className=" border border-white scale-x-[-1] p-2">
-                        <Image width={10} height={10} src="/assets/icon/play.svg" alt="Forrige video" className="cursor-pointer" />
+                        <Image width={10} height={10} src="/assets/icon/play.svg" alt="Forrige video" className="cursor-pointer w-full h-auto" />
                     </button>
 
                     {/* RIGHT ARROW */}
                     <button onClick={next} className=" border border-white p-2">
-                        <Image width={10} height={10} src="/assets/icon/play.svg" alt="Næste video" className="cursor-pointer" />
+                        <Image width={10} height={10} src="/assets/icon/play.svg" alt="Næste video" className="cursor-pointer w-full h-auto" />
                     </button>
                 </div>
             </div>

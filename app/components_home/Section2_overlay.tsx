@@ -56,7 +56,7 @@ export default function EventsCaroussel({ events }: Props) {
                       alt="Event image"
                       width={900} // specifik bredde
                       height={900} // specifik højde
-                      className="object-cover"
+                      className="object-cover w-full h-auto"
                     />
                     {/* Overlay */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-black/60 transition-opacity grid grid-cols-3 grid-rows-[auto_1fr_1fr] text-white">

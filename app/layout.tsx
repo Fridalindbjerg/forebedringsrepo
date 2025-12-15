@@ -47,7 +47,13 @@ export default function RootLayout({
           <section className="relative w-full max-w-[1200px] mx-auto text-white grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-8 text-center md:text-left" style={{ gridTemplateRows: "5rem auto 5rem 10rem" }}>
             {/* Logo */}
             <div className="flex items-center justify-center md:justify-start col-auto row-auto md:col-1 md:row-start-1">
-              <Image src="/assets/icon/Logo_main.svg" alt="Footer Logo" width={100} height={100} />
+              <Image
+                src="/assets/icon/Logo_main.svg"
+                alt="Logo"
+                width={120}
+                height={60}
+                className="w-full h-auto"
+              />
             </div>
             {/* LOCATION + OPENING HOURS */}
             <div className="col-auto row-auto md:col-1 md:row-start-2 md:row-span-2 flex flex-col gap-5">
