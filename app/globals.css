@@ -37,3 +37,14 @@ body {
   grid-column: content-start / content-end;
 }
 
+main > section {
+  margin: 4rem 0 4rem 0;
+}
+
+.banner {
+  margin: 0;
+}
+
+main {
+  margin-top: 0;
+}

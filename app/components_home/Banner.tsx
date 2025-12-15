@@ -7,7 +7,7 @@ interface props {
 
 const Banner = ({ text }: props) => {
   return (
-    <section className="relative uppercase h-50 bg-cover bg-center flex items-center justify-center col-full">
+    <section className="banner relative uppercase h-50 bg-cover bg-center flex items-center justify-center col-full">
       {/* Baggrundsbilledet */}
       <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url("/assets/bg/footerbg.jpg")` }}></div>
 
