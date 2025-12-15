@@ -52,6 +52,7 @@ export default function RootLayout({
                 alt="Logo"
                 width={150}
                 height={70}
+                className="w-auto h-auto"
               />
             </div>
             {/* LOCATION + OPENING HOURS */}
