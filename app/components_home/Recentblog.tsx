@@ -22,8 +22,7 @@ export default async function Recentblog() {
   return (
     <section className="col-[content-start/content-end]">
       <Index_h2 text="Recent Blog" />
-      <article className="flex justify-between gap-5">
-
+      <article className="flex flex-col gap-5 sm:flex-row">
         {posts.map((post) => (
           <Link key={post.id} href={`/blogposts/${post.id}`}>
             <article className="space-y-5">
