@@ -50,9 +50,8 @@ export default function RootLayout({
               <Image
                 src="/assets/icon/Logo_main.svg"
                 alt="Logo"
-                width={120}
-                height={60}
-                className="w-full h-auto"
+                width={150}
+                height={70}
               />
             </div>
             {/* LOCATION + OPENING HOURS */}
