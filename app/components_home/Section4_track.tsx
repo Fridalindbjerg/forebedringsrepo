@@ -48,7 +48,7 @@ export default function TrackCarousel() {
 
       {/* forrige track knap */}
       <button onClick={prev} className="hidden md:flex border border-white scale-x-[-1] p-2 col-[full-start/content-start] row-start-2 self-center justify-self-end mr-2">
-        <Image width={10} height={10} src="/assets/icon/play.svg" alt="Forrige sang" className="cursor-pointer" />
+        <Image width={10} height={10} src="/assets/icon/play.svg" alt="Forrige sang" className="cursor-pointer w-auto h-auto" />
       </button>
 
       {/* "galleri" */}
@@ -66,7 +66,7 @@ export default function TrackCarousel() {
                 {isActive && (
                   <>
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <Image src="/assets/icon/Play_btn.svg" width={60} height={60} alt="Play Icon" />
+                      <Image src="/assets/icon/Play_btn.svg" width={60} height={60} alt="Play Icon" className="w-auto h-auto" />
                     </div>
 
                     <div className="absolute bottom-0 left-0 right-0 bg-black/80 text-white px-3 py-2 text-center text-sm font-semibold truncate">{track.title}</div>
@@ -83,7 +83,7 @@ export default function TrackCarousel() {
 
       {/* næste track knap */}
       <button onClick={next} className="hidden md:flex border border-white p-2 col-[content-end/full-end] row-start-2 self-center justify-self-start ml-2">
-        <Image width={10} height={10} src="/assets/icon/play.svg" alt="Næste video" className="cursor-pointer" />
+        <Image width={10} height={10} src="/assets/icon/play.svg" alt="Næste video" className="cursor-pointer w-auto h-auto" />
       </button>
 
       {/* knapper mobilformat */}
@@ -93,7 +93,7 @@ export default function TrackCarousel() {
           aria-label="Forrige sang"
           className="w-7 h-7 border border-white grid place-items-center"
         >
-          <Image width={10} height={10} src="/assets/icon/play.svg" alt="Forrige sang" />
+          <Image width={10} height={10} src="/assets/icon/play.svg" alt="Forrige sang" className="w-auto h-auto" />
         </button>
 
         <button
@@ -101,7 +101,7 @@ export default function TrackCarousel() {
           aria-label="Næste sang"
           className="w-7 h-7 border border-white grid place-items-center p2"
         >
-          <Image width={10} height={10} src="/assets/icon/play.svg" alt="Næste sang" />
+          <Image width={10} height={10} src="/assets/icon/play.svg" alt="Næste sang" className="w-auto h-auto" />
         </button>
       </div>
     </section>
