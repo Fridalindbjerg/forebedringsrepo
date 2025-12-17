@@ -13,6 +13,7 @@ export interface Picture {
   asset: { url: string };
 }
 
+// Props interface
 interface Props {
   gallery: Picture[];
 }
@@ -32,14 +33,13 @@ export default function GalleryWithFramerModal({ gallery }: Props) {
    * Det er en TypeScript union type: <1 | -1>. Betyder state må KUN være 1 eller -1. */
   const [direction, setDirection] = useState<1 | -1>(1);
 
-  /**
-   * 'index' kommer fra det billede man klikker på i galleriet. Sætter hvilket billede der skal vises i modal */
+  /*'index' kommer fra det billede man klikker på i galleriet. Sætter hvilket billede der skal vises i modal */
   const openModal = (index: number) => {
     setSelectedIndex(index);
     setIsOpen(true);
   };
 
-  /**
+  /*
    * Skifter billede i modal-slideshowet
    * 'dir' bestemmer om det enten er fremad (1) eller bagud (-1)
    * wrap(...) sørger for at vi "wrap-around":
@@ -56,6 +56,7 @@ export default function GalleryWithFramerModal({ gallery }: Props) {
     setDirection(dir);
   };
 
+  // Lukkker modal ved tryk på "Escape" knappen
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -72,7 +73,8 @@ export default function GalleryWithFramerModal({ gallery }: Props) {
     return () => {
       window.removeEventListener("keydown", handleEsc);
     };
-  }, [isOpen]); // Kører når isOpen ændrer sig
+    // Kører når isOpen ændrer sig
+  }, [isOpen]);
 
   return (
     <div>
@@ -80,7 +82,8 @@ export default function GalleryWithFramerModal({ gallery }: Props) {
         {gallery.slice(0, 4).map((pic, i) => (
           <motion.div
             key={pic.id}
-            className="relative group w-full h-[250px]" // relative + group + height
+            // group bruges til at lave hover-effekter på børnene i denne div
+            className="relative group w-full h-[250px]"
             initial={{ opacity: 0, x: -70 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -97,7 +100,7 @@ export default function GalleryWithFramerModal({ gallery }: Props) {
           </motion.div>
         ))}
       </div>
-
+      {/* Splitter billederne med 4 øverst og 3 under */}
       <div className="grid grid-cols-1 md:grid-cols-3 ">
         {gallery.slice(4, 7).map((pic, i) => (
           <motion.div key={pic.id} className="relative group w-full h-[250px]" initial={{ opacity: 0, x: -70 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 1, delay: i * 0.125 }}>
@@ -127,9 +130,12 @@ export default function GalleryWithFramerModal({ gallery }: Props) {
             </motion.button>
 
             <AnimatePresence
-              custom={direction} // Giver 'direction' til animationerne
-              initial={false} // Forhindrer at der køres initial-animation ved første render
-              mode="popLayout" // Sørger for at elementet fjernes og det nye animeres ind pænt
+              // Giver 'direction' til animationerne
+              custom={direction}
+              // Forhindrer at der køres initial-animation ved første render
+              initial={false}
+              // Sørger for at elementet fjernes og det nye animeres ind pænt
+              mode="popLayout"
             >
               {/* 
               Slide-komponenten bliver re-mountet hver gang 'selectedIndex' ændrer sig.
@@ -137,9 +143,12 @@ export default function GalleryWithFramerModal({ gallery }: Props) {
               hvornår et billede er "nyt" → derfor ingen exit/enter animation.
               */}
               <Slide
-                key={gallery[selectedIndex].id} // Tvinger Motion til at animate mellem billeder
-                picture={gallery[selectedIndex]} // Det aktuelle billede
-                custom={direction} // Sender swipe-retningen ned til Slide komponenten
+                // Tvinger Motion til at animate mellem billeder
+                key={gallery[selectedIndex].id}
+                // Det aktuelle billede
+                picture={gallery[selectedIndex]}
+                // Sender swipe-retningen ned til Slide komponenten
+                custom={direction}
               />
             </AnimatePresence>
 
@@ -156,17 +165,10 @@ export default function GalleryWithFramerModal({ gallery }: Props) {
 // forwardRef bruges for at framer-motion kan få en reference til DOM-elementet,
 // når komponenten bruges inde i AnimatePresence.
 const Slide = forwardRef(function Slide({ picture, custom }: { picture: Picture; custom: number }, ref: React.Ref<HTMLDivElement>) {
-  //   // Henter "direction" for animationen fra AnimatePresence.
-  //   // Den bruges til at vide om vi skal animere venstre→højre eller højre→venstre.
+  // Henter "direction" for animationen fra AnimatePresence.
+  // Den bruges til at vide om vi skal animere venstre→højre eller højre→venstre.
   const direction = usePresenceData();
   return (
-    // <motion.div ref={ref} initial={{ opacity: 0, x: direction * 50 }} animate={{ opacity: 1, x: 0, transition: { type: "spring", bounce: 0.3 } }} exit={{ opacity: 0, x: direction * -50 }} custom={custom} className="max-w-[80vw] max-h-[80vh] w-auto h-auto overflow-hidden ">
-    //   <div className="border-b-2 border-(--pink) relative">
-    //     <div className="absolute bottom-0 right-0 w-0 h-0 border-l-30 border-l-transparent border-b-30 border-b-(--pink)" />
-
-    //     <img src={picture.asset.url} alt={picture.description} className="w-full h-full object-contain" />
-    //   </div>
-    // </motion.div>
     <motion.div ref={ref} initial={{ opacity: 0, x: direction * 50 }} animate={{ opacity: 1, x: 0, transition: { type: "spring", bounce: 0.3 } }} exit={{ opacity: 0, x: direction * -50 }} custom={custom} className="max-w-[80vw] max-h-[80vh] w-auto h-auto overflow-hidden">
       <div className="border-b-2 border-(--pink) relative w-full h-full">
         <div className="relative w-full h-full">
@@ -174,7 +176,7 @@ const Slide = forwardRef(function Slide({ picture, custom }: { picture: Picture;
           <Image
             src={picture.asset.url}
             alt={picture.description}
-            width={800} // px eller dynamisk
+            width={800}
             height={600}
             className="object-contain w-full h-auto"
           />

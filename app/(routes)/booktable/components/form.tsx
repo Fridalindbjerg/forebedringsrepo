@@ -19,25 +19,30 @@ interface Reservation {
   comments: string;
 }
 
-// Formularen har ikke id, så vi kan bruge Omit for at fjerne id feltet fra formfieldstypen
-type FormFields = Omit<Reservation, "id">;
+// Formularen har ikke id, så vi kan fjerne id feltet fra i formular typen
+interface FormFields {
+  name: string;
+  table: number;
+  date: string;
+  email: string;
+  password: string;
+  guests: number;
+  phone: number;
+  comments: string;
+}
 
 export default function Form({ data }: { data: Reservation[] }) {
-  // brug useState til...
-
-  // const [selectedDate, setSelectedDate] = useState<Number | null>(null);
-
+  // state til at holde styr på den valgte dato
   const [selectedDate, setSelectedDate] = useState<string>("");
 
-  // i const reservations filtrerer vi data for én eneklt reservation hvor vi finder datoen (uagtet af tidszone - getUTCDate) der matcher den valgte dato fra form
-  // const reservations = data.filter((res) => new Date(res.date).getUTCDate() == selectedDate);
-
+  // filtrer reservationer baseret på den valgte dato
   const reservations = selectedDate ? data.filter((res) => res.date.startsWith(selectedDate)) : [];
   console.log(reservations);
 
   const formattedReservations = reservations.map((res) => ({
     id: res.id,
-    table: Number(res.table), // konverter til number, men behold feltet "table"
+    // konverterer til number, men beholder feltet "table"
+    table: Number(res.table),
     date: res.date,
   }));
 
@@ -66,17 +71,14 @@ export default function Form({ data }: { data: Reservation[] }) {
         email: data.email,
         table: String(data.table),
         guests: String(data.guests),
-        // <input type="date"> giver "YYYY-MM-DD" — vi sætter et standard tidspunkt (20:00:00Z) som i dit eksempel
+        // <input type="date"> giver "YYYY-MM-DD" — vi sætter et standard tidspunkt (20:00:00Z) som i eksempelet
         date: new Date(data.date + "T20:00:00.000Z").toISOString(),
         phone: String(data.phone),
         comments: data.comments,
       }),
     });
-    // Vent på serverens svar – reservationen kommer nu tilbage med ID genereret af serveren
+    // Venter på serverens svar – reservationen kommer nu tilbage med ID genereret af serveren
 
-    // OBS TIL MIG SELV PÅ NEDENSTÅENDE
-    // const createdReservation = await res.json();
-    // console.log("Created reservation:", createdReservation);
 
     if (!res.ok) {
       setButtonText("Error");
@@ -84,12 +86,11 @@ export default function Form({ data }: { data: Reservation[] }) {
     }
 
     setButtonText("Your table is now reserved!");
-
+    // Nulstil formen efter succesfuld booking
     reset();
   };
 
   // her laver vi en funktion for handlePickTable, n = det tal (bordnummer), der sendes ind, skal være number.
-  //
   const handlePickTable = (n: number) => {
     // setValue kommer fra hooksfrom, der ændrer værdien af et bestemt felt i formularen
     // shouldValidate: Efter værdien ændres, skal react-hook-form køre validering på feltet.

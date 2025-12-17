@@ -8,19 +8,18 @@ type FormFields = {
 };
 
 const EmailSub = () => {
-  // starter komponenten
-
-  const [buttonText, setButtonText] = useState("Subscribe");
   //   benyttet ai til hjælp. Hjælp til hvordan jeg bruger useState til at ændre knap tekst efter submit.
   //   opretter et state til knap tekst - sådan så knaptekst ændrer sig efter submit. Udgangs tekst er "Subscribe".
+  const [buttonText, setButtonText] = useState("Subscribe");
 
   const {
-    register,
     // sørger for at validering sker ved tryk på submit knap
-    handleSubmit,
+    register,
     // håndterer submit og kalder onSubmit hvis validering er bestået
-    reset,
+    handleSubmit,
     // gør så formen nulstilles efter submit
+    reset,
+    // fejl fra validering
     formState: { errors },
   } = useForm<FormFields>();
 
@@ -53,32 +52,33 @@ const EmailSub = () => {
   };
 
   return (
-    <section className="grid col-[content-start/content-end] text-center gap-2 mx-5 my-10 md:mx-auto  md:w-full md:max-w-2xl">
-      <h3 className="text-xl font-medium uppercase">Want the latest nightclub news</h3>
-      <p className="mb-5">
-        Subscribe to our newsletter and never miss an <span className="text-(--pink)">Event</span>
-      </p>
+    <section className="grid col-[content-start/content-end] text-center gap-2">
+      <article className="mx-4 my-10 md:mx-auto md:w-full md:max-w-2xl">
+        <h3 className="text-xl font-medium uppercase">Want the latest nightclub news</h3>
+        <p className="mb-5">
+          Subscribe to our newsletter and never miss an <span className="text-(--pink)">Event</span>
+        </p>
 
-      <form
-        className="grid grid-cols-1 md:grid-cols-[2fr_max-content] 
-   gap-y-4 md:gap-y-4 gap-x-4 text-white placeholder-white"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <input
-          className="border-white border-b px-2 py-2 w-full"
-          type="text"
-          placeholder="Enter your email"
-          {...register("email", {
-            required: "Email is required",
-            validate: (value) => value.includes("@") || "Email must include @",
-          })}
-        />
+        <form
+          className="grid grid-cols-1 md:grid-cols-[2fr_max-content] gap-y-4 md:gap-y-4 gap-x-4 text-white placeholder-white"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <input
+            className="border-white border-b px-2 py-2 w-full"
+            type="text"
+            placeholder="Enter your email"
+            {...register("email", {
+              required: "Email is required",
+              validate: (value) => value.includes("@") || "Email must include @",
+            })}
+          />
 
-        {errors.email && <div className="col-span-1 md:col-span-2 text-left text-white">{errors.email.message}</div>}
-        <div className="flex justify-center md:self-end md:row-start-1 md:col-start-2">
-          <Button text={buttonText} />
-        </div>
-      </form>
+          {errors.email && <div className="col-span-1 md:col-span-2 text-left text-white">{errors.email.message}</div>}
+          <div className="flex justify-center md:self-end md:row-start-1 md:col-start-2">
+            <Button text={buttonText} />
+          </div>
+        </form>
+      </article>
     </section>
   );
 };

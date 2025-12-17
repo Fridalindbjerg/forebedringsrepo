@@ -1,4 +1,3 @@
-import { div } from "framer-motion/client";
 import Image from "next/image";
 
 interface props {
@@ -16,7 +15,7 @@ const Banner = ({ text }: props) => {
 
       {/* Indhold */}
       <div className="relative flex flex-col items-center justify-center h-full">
-        <h1 className="text-white text-4xl font-bold">{text}</h1>
+        <h1 className="text-white text-3xl ">{text}</h1>
         <Image src="/assets/bottom_line.png" alt="party pic" width={1920} height={300} className="w-full h-auto" />
       </div>
     </section>

@@ -6,9 +6,15 @@ interface props {
 
 const Index_h2 = ({ text }: props) => {
   return (
-    <div className="place-items-center">
+    <div className="flex flex-col items-center mb-8">
       <h2 className="text-3xl uppercase">{text}</h2>
-      <Image src="/assets/bottom_line2.png" alt="party pic" width={1920} height={300} className="w-170 h-auto" />
+      <Image
+        src="/assets/bottom_line2.png"
+        alt="divider"
+        width={400}
+        height={20}
+        className="w-80 h-auto"
+      />
     </div>
   );
 };

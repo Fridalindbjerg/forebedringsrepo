@@ -4,13 +4,14 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import Button from "@/app/button";
-// definerer type (KUN i typescript) for form felter
-type FormFields = {
+// definerer type 
+interface FormFields {
   name: string;
   email: string;
   comments: string;
 };
 
+// send knappen
 export default function ContactForm() {
   const [buttonText, setButtonText] = useState("Send");
 
@@ -21,6 +22,7 @@ export default function ContactForm() {
     formState: { errors },
   } = useForm<FormFields>();
 
+  // onSubmit funktion til at håndtere form når besked sendes
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     setButtonText("Sending...");
 
@@ -43,24 +45,26 @@ export default function ContactForm() {
       return;
     }
 
+    // Succesbesked
     // button tekst ændres til submitted hvis alt er ok (validering + post request)
     setButtonText("Message Sent");
 
+    // resetter form efter succesfuld submission
     reset();
   };
 
   return (
     <section className="place-items-center w-full h-full">
-      <form className="grid grid-cols-1 gap-2 md:gap-4 text-white placeholder-white w-100 " onSubmit={handleSubmit(onSubmit)}>
-        <input
-          className="border-white border px-2 py-2"
-          type="text"
-          placeholder="Your Name"
-          {...register("name", {
-            required: "Name is required",
-            validate: (value) => /\p{L}{2,}/u.test(value) || "Name must be at least 2 letters",
-          })}
-        />
+      <form className="grid grid-cols-1 gap-2 md:gap-4 text-white placeholder-white w-80 mx-3" onSubmit={handleSubmit(onSubmit)}>        <input
+        className="border-white border px-2 py-2"
+        type="text"
+        placeholder="Your Name"
+        {...register("name", {
+          required: "Name is required",
+          validate: (value) => /\p{L}{2,}/u.test(value) || "Name must be at least 2 letters",
+        })}
+      />
+        {/* Error besked hvis navn ikke lever op til krav */}
         {errors.name && <div className="text-white">{errors.name.message}</div>}
 
         <input
@@ -72,12 +76,13 @@ export default function ContactForm() {
             validate: (value) => value.includes("@") || "Email must include @",
           })}
         />
+        {/* Erro besked hvis email ikke lever op til krav */}
         {errors.email && <div className="text-white">{errors.email.message}</div>}
 
         <textarea className="border-white border px-2 py-2  h-60 resize-none" placeholder="Your Comment" {...register("comments")} />
         {errors.comments?.message && <div className="text-red-300">{errors.comments.message}</div>}
 
-        {/*  VIGTIGT HUSK TILFØJ SUBMIT SUCCESS BESKED */}
+        {/*  Knap med succesbesked fra længere oppe */}
         <div className="flex justify-end">
           <Button text={buttonText} type="submit" />
         </div>

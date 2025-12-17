@@ -11,6 +11,7 @@ type Props = {
   icon: string;
 };
 
+// Definerer tiderne for aniamtionerne
 const Time = { duration: 1.5, ease: "easeOut" as const };
 const Fast = { duration: 0.6, ease: "easeOut" as const };
 
@@ -22,7 +23,7 @@ export default function Card({ image, title, text, icon }: Props) {
 
     <motion.div
       className="relative group grid"
-      // initial="rest": år komponent først indlæses er state = rest
+      // initial="rest": når komponent først indlæses er state = rest
       initial="rest"
       // animate="rest": sikrer at komponent altid er i rest når der ikke interageres med det (kan godt udelades, men er godt at have)
       animate="rest"
@@ -38,8 +39,7 @@ export default function Card({ image, title, text, icon }: Props) {
 
       {/* "overlay div" - Første div styrer mørkt overlay/baggrund */}
       <motion.div
-        className="row-start-1 col-start-1 w-full h-full bg-black/90
-                      opacity-0 group-hover:opacity-100"
+        className="row-start-1 col-start-1 w-full h-full bg-black/90 opacity-0 group-hover:opacity-100"
         variants={{
           // kort forklaring: state rest= sort overlay ikke synligt, state hover = sort overlay synligt
           rest: { opacity: 0 },
@@ -50,10 +50,7 @@ export default function Card({ image, title, text, icon }: Props) {
 
       {/*"content div" - Ekstra div til alt indhold - nødvendigt da denne skal have flex, for at positionere ikon, trekanter, h3 og p*/}
       <motion.div
-        className="row-start-1 col-start-1 w-full h-full px-6
-                      flex flex-col items-center justify-center text-center
-                      opacity-0  group-hover:opacity-100
-                      transition-all "
+        className="row-start-1 col-start-1 w-full h-full px-6 flex flex-col items-center justify-center text-center opacity-0  group-hover:opacity-100 transition-all "
         variants={{
           rest: { opacity: 0 },
           hover: { opacity: 1 },
@@ -91,8 +88,7 @@ export default function Card({ image, title, text, icon }: Props) {
 
       {/* trekanter - vises også kun ved hover */}
       <motion.div
-        className="absolute top-0 left-0 w-0 h-0 border-r-70 border-r-transparent border-t-70 border-t-(--pink)
-                      opacity-0 group-hover:opacity-100 "
+        className="absolute top-0 left-0 w-0 h-0 border-r-70 border-r-transparent border-t-70 border-t-(--pink) opacity-0 group-hover:opacity-100 "
         variants={{
           rest: { opacity: 0, y: -40 },
           hover: { opacity: 1, y: 0 },
@@ -100,8 +96,7 @@ export default function Card({ image, title, text, icon }: Props) {
         transition={Fast}
       />
       <motion.div
-        className="absolute bottom-0 right-0 w-0 h-0 border-l-70 border-l-transparent border-b-70 border-b-(--pink)
-                      opacity-0 group-hover:opacity-100 "
+        className="absolute bottom-0 right-0 w-0 h-0 border-l-70 border-l-transparent border-b-70 border-b-(--pink) opacity-0 group-hover:opacity-100 "
         variants={{
           rest: { opacity: 0, y: 40 },
           hover: { opacity: 1, y: 0 },

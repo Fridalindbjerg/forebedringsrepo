@@ -7,11 +7,17 @@ export default async function Section2_events() {
 
 
     return (
-        <section className="col-[content-start/content-end]">
-            <Index_h2 text="Events of the month" />
-            <div className="">
+        <section className="relative col-[full-start/full-end] overflow-hidden">
+            <div
+                className="absolute inset-0 bg-cover bg-center -z-10"
+                style={{ backgroundImage: `url("/assets/bg/slider_bg_overlay.png")` }}
+            />
+            <div className="absolute inset-0 bg-black/50 -z-10" />
+
+            <div className="col-[content-start/content-end]">
+                <Index_h2 text="Events of the month" />
                 <Section2_overlay events={events} />
             </div>
         </section>
     );
-}
+} 

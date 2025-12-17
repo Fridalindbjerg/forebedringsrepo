@@ -1,14 +1,11 @@
-import Hero from "./components_home/Hero";
-import Header from "./components_home/Header";
 import Section3_Gallery from "./components_home/Section3_gallery";
-import Index_h2 from "./components_home/Index_h2";
-import Latestvideo from "./components_home/Latestvideo";
+import Section5_latestvideo from "./components_home/Section5_latestvideo";
 import EmailSub from "./components_home/Section8_email_sub";
-import Testimonials from "./components_home/Testimonials";
+import Section6_testimonials from "./components_home/Section6_testimonials";
 import Section4_track from "./components_home/Section4_track";
 import Section2_events from "./components_home/Section2_events";
 import Section1_welcome from "./components_home/Section1_welcome";
-import Recentblog from "./components_home/Recentblog";
+import Section7_recentblog from "./components_home/Section7_recentblog";
 import { Suspense } from "react";
 
 // Timer på loading så den er synlig: Udkommenteres for at fjerne delay
@@ -19,9 +16,8 @@ import { Suspense } from "react";
 
 export default function HomePage() {
   return (
-    <main className="grid grid-cols-subgrid col-[full-start/full-end]">
+    <main className="frontpage grid grid-cols-subgrid col-[full-start/full-end]">
       <Section1_welcome />
-
       <Suspense fallback={<div>Loading Events of the month...</div>}>
         <Section2_events />
       </Suspense>
@@ -29,13 +25,12 @@ export default function HomePage() {
         <Section3_Gallery />
       </Suspense>
       <Section4_track />
-      <Latestvideo />
+      <Section5_latestvideo />
       <Suspense fallback={<div>Loading testimonials...</div>}>
-        <Testimonials />
+        <Section6_testimonials />
       </Suspense>
-      {/* LÆG RECENT BLOG IND I SUSPENSE !!!!! */}
       <Suspense fallback={<div>Loading recent blog...</div>}>
-        <Recentblog />
+        <Section7_recentblog />
       </Suspense>
       <EmailSub />
     </main>
