@@ -47,13 +47,7 @@ export default function RootLayout({
           <section className="relative w-full max-w-[1200px] mx-auto text-white grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-8 text-center md:text-left" style={{ gridTemplateRows: "5rem auto 5rem 10rem" }}>
             {/* Logo */}
             <div className="flex items-center justify-center md:justify-start col-auto row-auto md:col-1 md:row-start-1">
-              <Image
-                src="/assets/icon/Logo_main.svg"
-                alt="Logo"
-                width={150}
-                height={70}
-                className="w-auto h-auto"
-              />
+              <Image src="/assets/icon/Logo_main.svg" alt="Logo" width={150} height={70} className="w-auto h-auto" />
             </div>
             {/* LOCATION + OPENING HOURS */}
             <div className="col-auto row-auto md:col-1 md:row-start-2 md:row-span-2 flex flex-col gap-5">
@@ -125,13 +119,19 @@ export default function RootLayout({
               <p>Stay Connected With Us</p>
               <div className="flex justify-center gap-4">
                 <div className="flex items-center justify-center border border-white w-8 h-8">
-                  <FaFacebookF />
+                  <a href="https://www.facebook.com/" target="_blank">
+                    <FaFacebookF />
+                  </a>
                 </div>
                 <div className="flex items-center justify-center border border-white w-8 h-8">
-                  <GrSnapchat />
+                  <a href="https://www.snapchat.com/" target="_blank">
+                    <GrSnapchat />
+                  </a>
                 </div>
                 <div className="flex items-center justify-center border border-white w-8 h-8">
-                  <FaInstagram />
+                  <a href="https://www.instagram.com/" target="_blank">
+                    <FaInstagram />
+                  </a>
                 </div>
               </div>
             </div>
