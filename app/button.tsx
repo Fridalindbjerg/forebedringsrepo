@@ -3,6 +3,8 @@ type Props = {
   type?: "button" | "submit" | "reset";
 };
 
+//hej test 379
+
 const Button = ({ text, type }: Props) => {
   return (
     <button
