@@ -1,7 +1,7 @@
 import Comments from "./components/comments";
 import Image from "next/image";
 import { Suspense } from "react";
-import Banner from "@/app/components_home/Banner"
+import Banner from "@/app/components_home/Banner";
 
 // TypeScript interface til parametre
 interface BlogParams {
@@ -24,13 +24,10 @@ const Blog = async ({ params }: BlogParams) => {
   const count = comments.length;
 
   return (
-    <main
-      className="grid grid-cols-subgrid col-[full-start/full-end]">
+    <main className="grid grid-cols-subgrid col-[full-start/full-end]">
       <Banner text="Blog post" />
 
-      <section
-        className="grid col-[full-start/full-end] md:col-[content-start/content-end]">
-
+      <section className="grid col-[full-start/full-end] md:col-[content-start/content-end]">
         <Image
           // URL til billedet
           src={singlepost.asset.url}
@@ -49,7 +46,7 @@ const Blog = async ({ params }: BlogParams) => {
             {/* Hvis count er 1 vises "1 comment", ellers vises "<count> comments" */}
             <p>{count === 1 ? "1 comment" : `${count} comments`}</p>
             <span>/</span>
-            <p>date: NA</p>
+            <p> {singlepost.date}</p>
           </div>
 
           <p className="line-clamp-6">{singlepost.content}</p>
@@ -66,10 +63,8 @@ const Blog = async ({ params }: BlogParams) => {
 
 export default function Page({ params }: BlogParams) {
   return (
-
     <Suspense fallback={<p>Loading Blog...</p>}>
       <Blog params={params} />
     </Suspense>
-
   );
 }
