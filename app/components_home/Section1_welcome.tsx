@@ -3,8 +3,7 @@ import Index_h2 from "./Index_h2";
 
 export default function Section1_welcome() {
   return (
-    <section className="col-[content-start/content-end] ">
-      <Index_h2 text="Welcome to nightclub" />
+    <section className="col-[full-start/full-end]">
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card image="/assets/content-img/thumb1.jpg" iconName="bar" title="Night Club" text="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don’t look even slightly believable." />

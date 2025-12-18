@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useState, useRef, useEffect } from "react";
+import { forwardRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, usePresenceData, wrap } from "motion/react";
 import Index_h2 from "./Index_h2";
@@ -11,7 +11,7 @@ interface VideoItem {
     video: string;
     description: string;
 }
-
+// Array af videoer med description
 const videos: VideoItem[] = [
     { id: 1, video: "/assets/media/video-crowd.mp4", description: "Video 1" },
     { id: 2, video: "/assets/media/video-dj-crowd-2.mp4", description: "Video 2" },
@@ -31,7 +31,7 @@ export default function VideoCarousel() {
         // wrap-around: går tilbage til første video hvis sidste er nået
         setIndex((i) => wrap(0, videos.length, i + 1));
     };
-
+    // Funktion til at gå til forrige video
     const prev = () => {
         setDirection(-1);
         setIndex((i) => wrap(0, videos.length, i - 1));
@@ -45,7 +45,6 @@ export default function VideoCarousel() {
             </h2>
 
             <div className="col-[content-start/content-end] grid place-items-center gap-4 mt-10">
-
 
                 {/* Slide */}
                 <div className="w-full aspect-video overflow-hidden relative">
@@ -85,12 +84,11 @@ const VideoSlide = forwardRef(function VideoSlide({ video, custom }: { video: Vi
             custom={custom}
             className="absolute top-0 left-0 w-full h-full"
         >
-            {/* Trekant i øverste venstre hjørne */}
+            {/* Trekanter */}
             <div className="absolute top-0 left-0 w-0 h-0 border-r-50 border-r-transparent border-t-50 border-t-(--pink)" />
             <div className="absolute bottom-0 right-0 w-0 h-0 border-l-50 border-l-transparent border-b-50 border-b-(--pink)" />
 
-
-            <video src={video.video} className="w-full h-full object-cover" autoPlay loop muted playsInline />
+            <video src={video.video} className="w-full h-full object-cover" autoPlay loop playsInline />
         </motion.div>
     );
 });

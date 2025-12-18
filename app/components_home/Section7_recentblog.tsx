@@ -14,6 +14,7 @@ type BlogPost = {
 };
 
 export default async function Recentblog() {
+  // Henter de seneste 3 blogposts fra API'et, sorteret efter id i faldende rækkefølge
   const limit = 3;
   const url = `http://localhost:4000/blogposts?embed=comments&limit=${limit}&sort=id&order=desc`;
   const response = await fetch(url, { cache: "no-store" });

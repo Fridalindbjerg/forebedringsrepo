@@ -1,8 +1,5 @@
 @import "tailwindcss";
 
-
-
-
 :root {
   --foreground: #ffffff;
   --background: #171717;
@@ -41,50 +38,51 @@ body {
 }
 
 
-
-
-
-
 /* test */
 
 .player-dark {
-
   /* important gør at vi overrider playerens defalut styling */
   background: black !important;
   color: white !important;
 
   /* ikoner skal være hvide */
-  svg, .rhap_time, .rhap_header {
-  fill: white !important;
-  color: white !important;
-}
+  svg,
+  .rhap_time,
+  .rhap_header {
+    fill: white !important;
+    color: white !important;
+  }
 
-/* afspiller-bar-linje + download-progress er den del der er "buffet"/loaded + volumen bar*/ 
+  /* afspiller-bar-linje + download-progress er den del der er "buffet"/loaded + volumen bar*/
   .rhap_progress-bar,
-.rhap_download-progress, .rhap_volume-bar{
-  background: var(--pink) !important;
-}
-/* den del der er afspillet + knopper */
-.rhap_progress-filled,
-.rhap_volume-indicator,
-.rhap_progress-indicator {
-  background: white !important;
-}
+  .rhap_download-progress,
+  .rhap_volume-bar {
+    background: var(--pink) !important;
+  }
 
-
-
-
-
+  /* den del der er afspillet + knopper */
+  .rhap_progress-filled,
+  .rhap_volume-indicator,
+  .rhap_progress-indicator {
+    background: white !important;
+  }
 }
 
-main > section {
-  margin: 4rem 0 4rem 0;
+/* Indsat :not(.blog-page) da vi selv vil sætte specifikke margin og padding på denne side */
+main:not(.blog-page)>section {
+  margin: 1rem 0;
+  padding: 0rem 2rem;
 }
 
-.banner {
-  margin: 0;
+@media (min-width: 768px) {
+  main:not(.blog-page)>section {
+    margin: 1rem 0;
+    padding: 3rem;
+  }
 }
 
-main {
+/* Fjern luft over første sektion (banneret) - men ikke på forsiden */
+main:not(.blog-page):not(.frontpage)>section:first-child {
   margin-top: 0;
+  padding-top: 0;
 }

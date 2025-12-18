@@ -1,4 +1,3 @@
-// components/Section3_Gallery.tsx
 import Section3_popup, { Picture } from "./Section3_popup";
 import Index_h2 from "./Index_h2";
 
@@ -8,10 +7,10 @@ const Section3_Gallery = async () => {
   const gallery: Picture[] = await response.json();
 
   // Timer på loading så den er synlig: Udkommenteres for at fjerne delay
-  async function LoadContent() {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    return <div className="text-center py-20 px-4"></div>;
-  }
+  // async function LoadContent() {
+  //   await new Promise((resolve) => setTimeout(resolve, 2000));
+  //   return <div className="text-center py-20 px-4"></div>;
+  // }
 
   return (
     <section className="col-[full-start/full-end]">
@@ -22,29 +21,3 @@ const Section3_Gallery = async () => {
 };
 
 export default Section3_Gallery;
-
-// "use client";
-
-// import { useState, useEffect } from "react";
-// import Section3_popup, { Picture } from "./Section3_popup";
-
-// const Section3_Gallery = () => {
-//   const [gallery, setGallery] = useState<Picture[]>([]);
-
-//   useEffect(() => {
-//     fetch("http://localhost:4000/gallery?_limit=7")
-//       .then((res) => res.json())
-//       .then((data: Picture[]) => setGallery(data));
-//   }, []);
-
-//   return (
-//     <div>
-//       <div className="max-w-full">
-//         <h2 className="text-center mb-4">Night club gallery</h2>
-//         <Section3_popup gallery={gallery} />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Section3_Gallery;

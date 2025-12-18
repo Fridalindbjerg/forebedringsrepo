@@ -4,7 +4,9 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 const Header = () => {
+  // Hook til Client Components, der giver adgang til den aktuelle URL's stinavn
   const pathname = usePathname();
+  // State til burger menu
   const [open, setOpen] = useState(false);
   // Menu items array:
   const menuItems = [
@@ -16,26 +18,15 @@ const Header = () => {
 
   return (
     <header
-      className="
-    col-[full-start/full-end]
-    sticky top-0 z-50 h-20 bg-black border-y-2 border-(--pink)
-    md:grid md:grid-cols-subgrid
-  "
-    >
+      className="col-[full-start/full-end] sticky top-0 z-50 h-20 bg-black border-y-2 border-(--pink) md:grid md:grid-cols-subgrid">
+
       {/* Trekanter */}
       <div className="absolute bottom-0 right-0 w-0 h-0 border-l-30 border-l-transparent border-b-30 border-b-(--pink)" />
       <div className="absolute top-0 left-0 w-0 h-0 border-r-30 border-r-transparent border-t-30 border-t-(--pink)" />
 
       {/* Menu */}
       <div
-        className="h-full flex items-center justify-between
-      w-full  mx-auto
-      md:col-[content-start/content-end]
-      md:mx-0 md:w-auto 
-      px-6
-      md:px-4
-      xl:px-0"
-      >
+        className="h-full flex items-center justify-between w-full  mx-auto md:col-[content-start/content-end] md:mx-0 md:w-auto px-6 md:px-4 xl:px-0">
         <div>
           <a href="/">
             <Image
@@ -44,6 +35,7 @@ const Header = () => {
               width={120}
               height={60}
               className="w-full h-auto"
+              // Logo er identificeret som det største synlige element (fra impotering), når siden loader - Derfor bør det loades med det samme (priority)
               priority
             />
           </a>
@@ -53,7 +45,7 @@ const Header = () => {
           {/* mapper over menuItems arrayet for at generere menupunkterne, og tilføjer en betingelse for at vise et billede under det aktive menupunkt*/}
           {menuItems.map((item, index) => (
             <li key={index} className="cursor-pointer flex flex-col items-center">
-              {/* item.label kommer også fra menuItems, fx "Home" eller "Blog". */} {/* item.href kommer fra dit menuItems-array, fx "/" eller "/blog" */}
+              {/* item.label kommer også fra menuItems, fx "Home" eller "Blog". item.href kommer fra menuItems-array, fx "/" eller "/blog" */}
               <a
                 href={item.href}
                 // Gør det aktive menupunkt pink, ellers hvidt
@@ -61,7 +53,7 @@ const Header = () => {
               >
                 {item.label}
               </a>
-              {/* Hvis den aktuelle rute matcher linket → vis den lille pink underline-grafik */}
+              {/* Hvis den aktuelle route matcher linket → vises den lille pink underline-grafik */}
               {pathname === item.href && (
                 <Image
                   src="/assets/bottom_line2.png"

@@ -1,17 +1,3 @@
-// import { usePathname, useSearchParams } from 'next/navigation';
-// import Link from 'next/link';
-
-// export default function Pagination({ totalPages }: { totalPages: number }) {
-//   const pathname = usePathname();
-//   const searchParams = useSearchParams();
-//   const currentPage = Number(searchParams.get('page')) || 1;
-
-//   const createPageURL = (pageNumber: number | string) => {
-//     const params = new URLSearchParams(searchParams);
-//     params.set('page', pageNumber.toString());
-//     return `${pathname}?${params.toString()}`;
-//   };
-// }
 
 "use client";
 
@@ -21,7 +7,6 @@ import Link from "next/link";
 export default function Pagination({ currentPage, totalPages }: { currentPage: number; totalPages: number }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  // const currentPage = Number(searchParams.get("page")) || 1;
 
   const createPageURL = (pageNumber: number | string) => {
     const params = new URLSearchParams(searchParams);
@@ -29,14 +14,10 @@ export default function Pagination({ currentPage, totalPages }: { currentPage: n
     return `${pathname}?${params.toString()}`;
   };
 
-  // const prev = Math.max(1, currentPage - 1);
-  // const next = Math.min(totalPages, currentPage + 1);
-
   return (
     <nav className="flex items-center gap-6 text-white text-xl">
       {/* vi starter med at lave et array, som har længden af total sideantal -fordi vi gerne vil have en side 1, 2 ,3 osv der passer til totalPages.
   index er startpositionen i arrayet, så vi laver index +1 for at få sidenummer 1, da vi jo ikke skal starte på side 0.
-  
   */}
       {Array.from({ length: totalPages }, (value, index) => index + 1).map((page) =>
         page === currentPage ? (
