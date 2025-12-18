@@ -3,7 +3,7 @@ import Index_h2 from "./Index_h2";
 
 const Section3_Gallery = async () => {
   // Server-side fetch
-  const response = await fetch("http://localhost:4000/gallery?_limit=7");
+  const response = await fetch("http://localhost:4000/gallery?limit=7");
   const gallery: Picture[] = await response.json();
 
   // Timer på loading så den er synlig: Udkommenteres for at fjerne delay

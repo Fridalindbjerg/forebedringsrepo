@@ -3,7 +3,6 @@
 import "react-h5-audio-player/lib/styles.css";
 import Index_h2 from "./Index_h2";
 
-
 import { useState } from "react";
 import Image from "next/image";
 import AudioPlayer from "react-h5-audio-player";
@@ -41,14 +40,14 @@ export default function TrackCarousel() {
         <Index_h2 text="Night club track" />
         {/* Laver sammenhæng mellem billede og aktive track */}
         <div className="flex">
-          <Image src={tracks[activeIndex].img} width={250} height={250} alt="Current Track" className="hidden sm:flex h-auto w-auto" />
-          <AudioPlayer src={tracks[activeIndex].audio} autoPlay={false} header={<div className="uppercase font-semibold">{tracks[activeIndex].title}</div>} className="player-dark flex-1" showSkipControls showJumpControls={false} />
+          <Image src={tracks[activeIndex].img} width={250} height={250} alt="Current Track" className="hidden sm:flex" />
+          <AudioPlayer src={tracks[activeIndex].audio} autoPlay={false} header={<div className="uppercase font-semibold">{tracks[activeIndex].title}</div>} className="player-dark flex-1" showSkipControls showJumpControls={false} onClickNext={next} onClickPrevious={prev} onEnded={next} />
         </div>
       </div>
 
       {/* forrige track knap */}
       <button onClick={prev} className="hidden md:flex border border-white scale-x-[-1] p-2 col-[full-start/content-start] row-start-2 self-center justify-self-end mr-2">
-        <Image width={10} height={10} src="/assets/icon/play.svg" alt="Forrige sang" className="cursor-pointer w-auto h-auto" />
+        <Image width={10} height={10} src="/assets/icon/play.svg" alt="prev sonb" className="cursor-pointer w-auto h-auto" />
       </button>
 
       {/* "galleri" */}
@@ -58,9 +57,15 @@ export default function TrackCarousel() {
             const isActive = i === activeIndex;
 
             return (
-              <div key={i} onClick={() => setActiveIndex(i)} className={`relative shrink-0 cursor-pointer
-            ${isActive ? "block mx-auto" : "hidden"} < md: kun aktiv + centreret  md:block md:mx-0  ≥ md: vis alle som før 
-          `}>
+              <div
+                key={i}
+                onClick={() => setActiveIndex(i)}
+                className={`
+            relative shrink-0 cursor-pointer
+            ${isActive ? "block mx-auto" : "hidden"}  /* < md: kun aktiv + centreret */
+            md:block md:mx-0                          /* ≥ md: vis alle som før */
+          `}
+              >
                 <Image src={track.img} width={500} height={500} alt="thumbnail" className="w-full md:w-auto h-auto object-cover" />
                 {/* Aktive track overlay */}
                 {isActive && (
@@ -83,25 +88,17 @@ export default function TrackCarousel() {
 
       {/* næste track knap */}
       <button onClick={next} className="hidden md:flex border border-white p-2 col-[content-end/full-end] row-start-2 self-center justify-self-start ml-2">
-        <Image width={10} height={10} src="/assets/icon/play.svg" alt="Næste video" className="cursor-pointer w-auto h-auto" />
+        <Image width={10} height={10} src="/assets/icon/play.svg" alt="next song" className="cursor-pointer w-auto h-auto" />
       </button>
 
       {/* knapper mobilformat */}
       <div className="col-[content-start/content-end] row-start-3 md:hidden flex justify-center gap-5 mt-4 ">
-        <button
-          onClick={prev}
-          aria-label="Forrige sang"
-          className="w-7 h-7 border border-white grid place-items-center"
-        >
-          <Image width={10} height={10} src="/assets/icon/play.svg" alt="Forrige sang" className="w-auto h-auto" />
+        <button onClick={prev} aria-label="Prev song" className="w-7 h-7 border border-white grid place-items-center">
+          <Image width={10} height={10} src="/assets/icon/play.svg" alt="prev song" />
         </button>
 
-        <button
-          onClick={next}
-          aria-label="Næste sang"
-          className="w-7 h-7 border border-white grid place-items-center p2"
-        >
-          <Image width={10} height={10} src="/assets/icon/play.svg" alt="Næste sang" className="w-auto h-auto" />
+        <button onClick={next} aria-label="next song" className="w-7 h-7 border border-white grid place-items-center p2">
+          <Image width={10} height={10} src="/assets/icon/play.svg" alt="Next song" />
         </button>
       </div>
     </section>

@@ -1,21 +1,39 @@
 "use client";
 
 import Image from "next/image";
+import type { IconType } from "react-icons";
 
 import { motion } from "framer-motion";
+
+import { LiaConciergeBellSolid } from "react-icons/lia";
+import { BsPersonArmsUp } from "react-icons/bs";
+import { FaChampagneGlasses } from "react-icons/fa6";
 
 type Props = {
   image: string;
   title: string;
   text: string;
-  icon: string;
+  iconName: "bar" | "club" | "restaurant";
+  // iconSize: number;
 };
 
 // Definerer tiderne for aniamtionerne
 const Time = { duration: 1.5, ease: "easeOut" as const };
 const Fast = { duration: 0.6, ease: "easeOut" as const };
 
-export default function Card({ image, title, text, icon }: Props) {
+type CardProps = {
+  iconName: "bar" | "club" | "restaurant";
+};
+
+const iconMap: Record<CardProps["iconName"], IconType> = {
+  bar: FaChampagneGlasses,
+  club: BsPersonArmsUp,
+  restaurant: LiaConciergeBellSolid,
+};
+export default function Card({ image, title, text, iconName }: Props) {
+  //henter det IconName fra card som passer til navnet fra iconMap
+  const Icon = iconMap[iconName];
+
   return (
     // i denne framer-motion bruger vi tilstandende: rest og hover.
     // "rest" er når bruger ikke rør card
@@ -59,7 +77,7 @@ export default function Card({ image, title, text, icon }: Props) {
       >
         {/* Icon */}
         <div className="mb-6 inline-flex items-center justify-center rounded-md p-4 border-2 border-(--pink)">
-          <Image src={icon} alt="" width={48} height={48} className="w-12 h-12 object-contain" />
+          <Icon size={48} className="w-12 h-12 object-contain" color="var(--pink)" />
         </div>
 
         {/* Tekst h3 + p */}
