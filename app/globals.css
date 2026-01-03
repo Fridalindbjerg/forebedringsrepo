@@ -37,7 +37,6 @@ body {
   grid-column: content-start / content-end;
 }
 
-
 /* test */
 
 .player-dark {
@@ -69,20 +68,20 @@ body {
 }
 
 /* Indsat :not(.blog-page) da vi selv vil sætte specifikke margin og padding på denne side */
-main:not(.blog-page)>section {
+main:not(.blog-page) > section {
   margin: 1rem 0;
   padding: 0rem 2rem;
 }
 
 @media (min-width: 768px) {
-  main:not(.blog-page)>section {
+  main:not(.blog-page) > section {
     margin: 1rem 0;
-    padding: 3rem;
+    padding: 3rem 0rem;
   }
 }
 
 /* Fjern luft over første sektion (banneret) - men ikke på forsiden */
-main:not(.blog-page):not(.frontpage)>section:first-child {
+main:not(.blog-page):not(.frontpage) > section:first-child {
   margin-top: 0;
   padding-top: 0;
 }
