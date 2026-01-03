@@ -31,6 +31,7 @@ const Button = ({ text, type, state = "default" }: Props) => {
   return (
     <button
       className={
+        // hvis state prop er "active", så bruges de styles, ellers bruges default styles (if/else sætning)
         state === "active"
           ? `
             px-6 py-3
