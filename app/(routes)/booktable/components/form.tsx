@@ -58,9 +58,14 @@ export default function Form({ data }: { data: Reservation[] }) {
 
   const [buttonText, setButtonText] = useState("Reserve");
 
+  // FORBEDRING HER
+  // bestemmer state for knappen - default eller active (se de forskellige styles i button.tsx)
+  const [buttonState, setButtonState] = useState<"default" | "active">("default");
+
   // her opretter vi vores onSubmit som håndterer det der sker når formen bliver submitted
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     setButtonText("Booking...");
+     setButtonState("active");
 
     // Send POST til serveren for at oprette en ny reservation
     const res = await fetch("http://localhost:4000/reservations", {
@@ -79,13 +84,27 @@ export default function Form({ data }: { data: Reservation[] }) {
     });
     // Venter på serverens svar – reservationen kommer nu tilbage med ID genereret af serveren
 
-
     if (!res.ok) {
       setButtonText("Error");
+
+       // FORBEDRING HER
+      // efter 5 sekunder ændres knap tekst tilbage til reserve
+      setTimeout(() => {
+        setButtonText("Reserve");
+            setButtonState("default");
+      }, 5000);
+
       return;
     }
 
     setButtonText("Your table is now reserved!");
+    
+    // FORBEDRING HER
+    // igen - efter 5 sekunder ændres knap tekst tilbage til reserve
+    setTimeout(() => {
+      setButtonText("Reserve");
+          setButtonState("default");
+    }, 5000);
     // Nulstil formen efter succesfuld booking
     reset();
   };
@@ -209,7 +228,7 @@ export default function Form({ data }: { data: Reservation[] }) {
 
         {/* Submit */}
         <div className="md:col-span-2 flex justify-end">
-          <Button text={buttonText} type="submit" />
+          <Button text={buttonText} state={buttonState} type="submit" />
         </div>
       </form>
     </section>

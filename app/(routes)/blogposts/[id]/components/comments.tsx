@@ -26,6 +26,11 @@ interface CommentsProps {
 export default function Comments({ postId, initialComments = [] }: CommentsProps) {
   // State til at holde styr på kommentarer i UI
   const [comments, setComments] = useState<Comment[]>(initialComments);
+  const [buttonText, setButtonText] = useState("Submit");
+
+  // FORBEDRING HER
+  // bestemmer state for knappen - default eller active (se de forskellige styles i button.tsx)
+  const [buttonState, setButtonState] = useState<"default" | "active">("default");
 
   // Opsætning af react-hook-form
   const {
@@ -37,6 +42,9 @@ export default function Comments({ postId, initialComments = [] }: CommentsProps
 
   // Funktion der kører, når formen submittes
   const onSubmit = async (data: commentForm) => {
+    setButtonText("Submitting...");
+       setButtonState("active");
+
     // Send POST til serveren for at oprette en ny kommentar
     const res = await fetch("http://localhost:4000/comments", {
       method: "POST",
@@ -49,11 +57,34 @@ export default function Comments({ postId, initialComments = [] }: CommentsProps
       }),
     });
 
+    // hvis server returnerer en fejl, ændres knap tekst til error
+    if (!res.ok) {
+      setButtonText("Error");
+
+      // FORBEDRING HER
+      // efter 5 sekunder ændres knap tekst tilbage til submit
+      setTimeout(() => {
+        setButtonText("Submit");
+         setButtonState("default");
+      }, 5000);
+      return;
+    }
+
     // Vent på serverens svar – kommentaren kommer nu med ID genereret af serveren
     const createdComment = await res.json();
 
     // Opdater UI med den nye kommentar i bunden
     setComments((prev) => [...prev, createdComment]);
+
+    // button tekst ændres til submitted hvis alt er ok (validering + post request)
+    setButtonText("Submitted");
+
+     // FORBEDRING HER
+    // igen - efter 5 sekunder ændres knap tekst tilbage til submit
+    setTimeout(() => {
+      setButtonText("Submit");
+       setButtonState("default");
+    }, 5000);
 
     // Nulstil inputfelterne
     reset();
@@ -84,7 +115,7 @@ export default function Comments({ postId, initialComments = [] }: CommentsProps
 
       {/* Submit-knap */}
       <div className="flex justify-end">
-        <Button text="Submit" />
+        <Button text={buttonText} state={buttonState}/>
       </div>
     </form>
   );
