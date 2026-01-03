@@ -40,7 +40,8 @@ export default function TrackCarousel() {
         <Index_h2 text="Night club track" />
         {/* Laver sammenhæng mellem billede og aktive track */}
         <div className="flex">
-          <Image src={tracks[activeIndex].img} width={250} height={250} alt="Current Track" className="hidden sm:flex" />
+          {/* Indsat forbedring i warning - indsat w-auto & h-auto på image */}
+          <Image src={tracks[activeIndex].img} width={250} height={250} alt="Current Track" className="hidden sm:flex w-auto h-auto" />
           <AudioPlayer src={tracks[activeIndex].audio} autoPlay={false} header={<div className="uppercase font-semibold">{tracks[activeIndex].title}</div>} className="player-dark flex-1" showSkipControls showJumpControls={false} onClickNext={next} onClickPrevious={prev} onEnded={next} />
         </div>
       </div>
