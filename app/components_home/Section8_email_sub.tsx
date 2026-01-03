@@ -12,6 +12,10 @@ const EmailSub = () => {
   //   opretter et state til knap tekst - sådan så knaptekst ændrer sig efter submit. Udgangs tekst er "Subscribe".
   const [buttonText, setButtonText] = useState("Subscribe");
 
+  // FORBEDRING HER
+  // bestemmer state for knappen - default eller active (se de forskellige styles i button.tsx)
+  const [buttonState, setButtonState] = useState<"default" | "active">("default");
+
   const {
     // sørger for at validering sker ved tryk på submit knap
     register,
@@ -27,6 +31,7 @@ const EmailSub = () => {
   const onSubmit = async (data: FormFields) => {
     // ændrer knap tekst til submitting under fetch kald - sådan at bruger kan se at der sker noget.
     setButtonText("Submitting...");
+    setButtonState("active");
 
     const res = await fetch("http://localhost:4000/newsletters", {
       // sender en POST til api'en
@@ -41,11 +46,23 @@ const EmailSub = () => {
     // hvis server returnerer en fejl, ændres knap tekst til error
     if (!res.ok) {
       setButtonText("Error");
+      // FORBEDRING HER
+      // efter 5 sekunder ændres knap tekst tilbage til subscribe
+      setTimeout(() => {
+        setButtonText("Subscribe");
+        setButtonState("default");
+      }, 5000);
       return;
     }
 
     // button tekst ændres til submitted hvis alt er ok (validering + post request)
     setButtonText("Submitted");
+    // FORBEDRING HER
+    // igen - efter 5 sekunder ændres knap tekst tilbage til subscribe
+    setTimeout(() => {
+      setButtonText("Subscribe");
+      setButtonState("default");
+    }, 5000);
 
     reset();
     // tømmer felter
@@ -59,10 +76,7 @@ const EmailSub = () => {
           Subscribe to our newsletter and never miss an <span className="text-(--pink)">Event</span>
         </p>
 
-        <form
-          className="grid grid-cols-1 md:grid-cols-[2fr_max-content] gap-y-4 md:gap-y-4 gap-x-4 text-white placeholder-white"
-          onSubmit={handleSubmit(onSubmit)}
-        >
+        <form className="grid grid-cols-1 md:grid-cols-[2fr_max-content] gap-y-4 md:gap-y-4 gap-x-4 text-white placeholder-white" onSubmit={handleSubmit(onSubmit)}>
           <input
             className="border-white border-b px-2 py-2 w-full"
             type="text"
@@ -75,7 +89,7 @@ const EmailSub = () => {
 
           {errors.email && <div className="col-span-1 md:col-span-2 text-left text-white">{errors.email.message}</div>}
           <div className="flex justify-center md:self-end md:row-start-1 md:col-start-2">
-            <Button text={buttonText} />
+            <Button text={buttonText} state={buttonState} />
           </div>
         </form>
       </article>
