@@ -7,7 +7,7 @@ export default async function Section2_events() {
 
 
     return (
-        <section className="relative col-[full-start/full-end] overflow-hidden">
+        <section className="relative grid grid-cols-subgrid col-[full-start/full-end] overflow-hidden">
             <div
                 className="absolute inset-0 bg-cover bg-center -z-10"
                 style={{ backgroundImage: `url("/assets/bg/slider_bg_overlay.png")` }}
