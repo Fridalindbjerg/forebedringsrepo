@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@mui/icons-material": "^7.3.6",
     "@mui/material": "^7.3.6",
     "@mui/styles": "^6.5.0",
@@ -21,7 +22,8 @@
     "react-h5-audio-player": "^3.10.1",
     "react-hook-form": "^7.68.0",
     "react-icons": "^5.5.0",
-    "react-modern-audio-player": "^1.4.0-rc.2"
+    "react-modern-audio-player": "^1.4.0-rc.2",
+    "zod": "^4.3.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

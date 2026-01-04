@@ -28,13 +28,7 @@ export default function TestimonialsCarousel({ testimonials }: Props) {
     <section className="w-full max-w-4xl mx-auto text-center">
       <AnimatePresence mode="wait">
         <motion.div key={testimonials[index].id} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ duration: 0.5 }}>
-          <Image
-            src={testimonials[index].asset.url}
-            alt={testimonials[index].name}
-            width={128}
-            height={128}
-            className="mx-auto"
-          />{" "}
+          <Image src={testimonials[index].asset.url} alt={testimonials[index].name} width={128} height={128} className="mx-auto" />
           <h3 className="mt-4 font-bold uppercase">{testimonials[index].name}</h3>
           <p className="text-lg italic">{testimonials[index].content}</p>
           <div className="flex justify-center gap-4 mt-4">

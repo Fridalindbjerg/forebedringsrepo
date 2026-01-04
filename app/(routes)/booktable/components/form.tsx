@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import Tables from "./tables";
 import Button from "@/app/button";
@@ -13,23 +15,33 @@ interface Reservation {
   table: number;
   date: string;
   email: string;
-  password: string;
   guests: number;
   phone: number;
   comments: string;
 }
 
+const reservationFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 letters").regex(/\p{L}/u, "Name must contain only letters"),
+  table: z.number().min(1, "Please pick a table"),
+  date: z.string().refine((date) => !Number.isNaN(Date.parse(date)), { message: "You must choose a valid date" }),
+  email: z.string().email("Invalid email address"),
+  guests: z.number().min(1, "Minimum guests is 1").max(40, "Maximum guests is 40"),
+  phone: z.string().regex(/^\+?[1-9]\d{7,14}$/, "Invalid phone number"),
+  comments: z.string().optional(),
+});
+
+type FormFields = z.infer<typeof reservationFormSchema>;
+
 // Formularen har ikke id, så vi kan fjerne id feltet fra i formular typen
-interface FormFields {
-  name: string;
-  table: number;
-  date: string;
-  email: string;
-  password: string;
-  guests: number;
-  phone: number;
-  comments: string;
-}
+// interface FormFields {
+//   name: string;
+//   table: number;
+//   date: string;
+//   email: string;
+//   guests: number;
+//   phone: number;
+//   comments: string;
+// }
 
 export default function Form({ data }: { data: Reservation[] }) {
   // state til at holde styr på den valgte dato
@@ -54,7 +66,10 @@ export default function Form({ data }: { data: Reservation[] }) {
     watch,
     reset,
     formState: { errors },
-  } = useForm<FormFields>();
+  } = useForm<FormFields>({
+    resolver: zodResolver(reservationFormSchema),
+    mode: "onChange",
+  });
 
   const [buttonText, setButtonText] = useState("Reserve");
 
@@ -132,31 +147,14 @@ export default function Form({ data }: { data: Reservation[] }) {
         <div className="flex flex-col gap-1">
           {errors.name ? <span className="text-red-500 text-sm">{errors.name.message}</span> : <span className="h-4"></span>}
 
-          <input
-            className="border-white border px-2 py-2 w-full"
-            type="text"
-            placeholder="Your Name"
-            {...register("name", {
-              required: "Name is required",
-              validate: (value) => /\p{L}{2,}/u.test(value) || "Name must be at least 2 letters",
-            })}
-          />
+          <input className="border-white border px-2 py-2 w-full" type="text" placeholder="Your Name" {...register("name")} />
         </div>
 
         {/* Table number */}
         <div className="flex flex-col gap-1">
           {errors.table ? <span className="text-red-500 text-sm">{errors.table.message}</span> : <span className="h-4"></span>}
 
-          <input
-            className="border-white border px-2 py-2 w-full"
-            type="text"
-            readOnly
-            placeholder="Click a table above"
-            value={picked ?? ""}
-            {...register("table", {
-              required: "Please pick a table",
-            })}
-          />
+          <input className="border-white border px-2 py-2 w-full" type="text" readOnly placeholder="Click a table above" value={picked ?? ""} {...register("table")} />
         </div>
 
         {/* Dato */}
@@ -168,8 +166,6 @@ export default function Form({ data }: { data: Reservation[] }) {
             type="date"
             {...register("date", {
               onChange: (e) => setSelectedDate(e.target.value),
-              required: "Date is required",
-              validate: (value) => !Number.isNaN(Date.parse(value)) || "You must choose a valid date",
             })}
           />
         </div>
@@ -178,46 +174,21 @@ export default function Form({ data }: { data: Reservation[] }) {
         <div className="flex flex-col gap-1">
           {errors.email ? <span className="text-red-500 text-sm">{errors.email.message}</span> : <span className="h-4"></span>}
 
-          <input
-            className="border-white border px-2 py-2 w-full"
-            type="text"
-            placeholder="Email"
-            {...register("email", {
-              required: "Email is required",
-              validate: (value) => value.includes("@") || "Email must include @",
-            })}
-          />
+          <input className="border-white border px-2 py-2 w-full" type="text" placeholder="Email" {...register("email")} />
         </div>
 
         {/* Antal gæster */}
         <div className="flex flex-col gap-1">
           {errors.guests ? <span className="text-red-500 text-sm">{errors.guests.message}</span> : <span className="h-4"></span>}
 
-          <input
-            className="border-white border px-2 py-2 w-full"
-            type="number"
-            placeholder="Number of Guests"
-            {...register("guests", {
-              required: "Number of guests is required",
-              min: { value: 1, message: "Minimum guests is 1" },
-              max: { value: 40, message: "Maximum guests is 40" },
-            })}
-          />
+          <input className="border-white border px-2 py-2 w-full" type="number" placeholder="Number of Guests" {...register("guests", { valueAsNumber: true })} />
         </div>
 
         {/* Tlf nr */}
         <div className="flex flex-col gap-1">
           {errors.phone ? <span className="text-red-500 text-sm">{errors.phone.message}</span> : <span className="h-4"></span>}
 
-          <input
-            className="border-white border px-2 py-2 w-full"
-            type="tel"
-            placeholder="Phone Number"
-            {...register("phone", {
-              required: "Phone number is required",
-              pattern: { value: /^\+?[1-9]\d{7,14}$/, message: "Invalid phone number" },
-            })}
-          />
+          <input className="border-white border px-2 py-2 w-full" type="tel" placeholder="Phone Number" {...register("phone")} />
         </div>
 
         {/* Kommentar */}
