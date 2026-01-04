@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -25,11 +25,36 @@ export default function EventsCaroussel({ events }: Props) {
   // Hvor mange event-kort pr. slide
   const itemsPerSlide = 2;
 
-  // Splitter events op i arrays af 2 (2 pr. slide) med slice 
+  // Splitter events op i arrays af 2 (2 pr. slide) med slice
   const slides = [];
   for (let i = 0; i < events.length; i += itemsPerSlide) {
     slides.push(events.slice(i, i + itemsPerSlide));
   }
+
+  // FORBEDRING HER - AUTOMATISK SLIDESHOW MED PAUSE VED HOVER
+
+  // vi bruger useState til at bestemme om slideshow kører eller er pauseret. Udgangspunkt er false dvs at slideshowet "kører".
+  const [isPaused, setIsPaused] = useState(false);
+
+  const total = slides.length;
+
+  // Vi bruger useEffect til at styre vores slideshow interval.
+  // hvis slideshow er pauseret eller der ikke er nogen testimmonials, starter interval ikke.
+  useEffect(() => {
+    if (isPaused || total === 0) return;
+
+    //  Vi sætter et interval der opdaterer index state hver 5. sekund.
+    // % total sørger for at vi starter forfra, når vi når slutningen.
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % total);
+    }, 5000);
+    // OBS set interval stopper aldrig af sig selv! Derfor skal vi returnere en cleanup funktion der rydder op efter os.
+    //
+
+    return () => clearInterval(interval);
+
+    // dependencies er isPaused og total, så useEffect kører igen hvis en af dem ændres.
+  }, [isPaused, total]);
 
   return (
     <div className="w-full m-0">
@@ -43,7 +68,15 @@ export default function EventsCaroussel({ events }: Props) {
             const [datePart, timePart] = clean.split("T");
 
             return (
-              <div key={event.id} className="w-full cursor-pointer">
+              <div
+                key={event.id}
+                className="w-full cursor-pointer"
+                // Vi vil gerne styre at slideshowet pauseres når brugeren hover over sektionen.
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+                onTouchStart={() => setIsPaused(true)}
+                onTouchEnd={() => setIsPaused(false)}
+              >
                 <div className="relative group">
                   {/* trekanter */}
                   <div className="absolute top-0 left-0 w-0 h-0 border-r-70 border-r-transparent border-t-70 border-t-(--pink) opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
