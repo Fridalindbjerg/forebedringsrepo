@@ -68,6 +68,7 @@ export default function Form({ data }: { data: Reservation[] }) {
     formState: { errors },
   } = useForm<FormFields>({
     resolver: zodResolver(reservationFormSchema),
+    mode: "onChange",
   });
 
   const [buttonText, setButtonText] = useState("Reserve");
