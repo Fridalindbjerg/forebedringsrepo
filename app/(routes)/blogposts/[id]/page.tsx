@@ -37,10 +37,10 @@ const Blog = async ({ params }: BlogParams) => {
           className="w-full h-auto object-cover"
         />
 
-        <div className="gap-4">
+        <div className="gap-4 mt-5">
           <h2 className="text-xl font-semibold">{singlepost.title}</h2>
 
-          <div className="flex flex-row gap-2 text-(--pink) font-semibold">
+          <div className="flex flex-row gap-2 text-(--pink) font-semibold mt-2">
             <p>BY: {singlepost.author}</p>
             <span>/</span>
             {/* Hvis count er 1 vises "1 comment", ellers vises "<count> comments" */}
@@ -49,12 +49,12 @@ const Blog = async ({ params }: BlogParams) => {
             <p> {singlepost.date}</p>
           </div>
 
-          <p className="line-clamp-6">{singlepost.content}</p>
+          <p className="line-clamp-6 mt-2">{singlepost.content}</p>
 
-          <h2 className="text-3xl font-semibold ">{count === 1 ? "1 comment" : `${count} comments`}</h2>
+          <h2 className="text-3xl font-semibold mt-5">{count === 1 ? "1 comment" : `${count} comments`}</h2>
 
           {/* Render comments komponent */}
-          <Comments postId={singlepost.id} initialComments={comments} />
+          <Comments postId={singlepost.id} initialComments={comments}/>
         </div>
       </section>
     </main>

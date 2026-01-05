@@ -91,18 +91,25 @@ export default function Comments({ postId, initialComments = [] }: CommentsProps
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 ">
-      {/* Liste over kommentarer */}
-      <div className="flex flex-col gap-6">
-        {comments.map((comment, index) => (
-          <div key={index} className="flex flex-col gap-2">
-            <strong>{comment.name}</strong> {/* Navn på kommentator */}
-            <span className="text-(--pink)">{comment.date}</span> {/* Dato */}
-            <p>{comment.content}</p> {/* Kommentar indhold */}
-          </div>
-        ))}
-      </div>
+   <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 mt-5">
+  {/* Liste over kommentarer */}
+  <div className="flex flex-col gap-6">
+    {comments.map((comment, index) => (
+      <div key={index} className="flex flex-col gap-2">
+        
+        {/* Navn + dato på samme linje */}
+        <div className="flex items-center gap-2">
+          <strong>{comment.name}</strong>
+          <strong>-</strong>
+          <span className="text-(--pink)">Posted {comment.date}</span>
+        </div>
 
+        <p className="mt-2">{comment.content}</p>
+      </div>
+    ))}
+  </div>
+
+<h2 className="text-3xl font-semibold mt-5">Leave a comment</h2>
       {/* Input til navn */}
       <input {...register("name", { required: "Name is required" })} placeholder="Your name" className="p-3 bg-black/20 border border-white placeholder-white" />
       {/* Valideringsfejl for navn */}
