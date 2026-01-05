@@ -14,11 +14,13 @@ import { Suspense } from "react";
 
 export default function Page() {
   return (
-    <main className="col-[content-start/content-end]">
+    <main className="col-[content-start/content-end] ">
       <Banner text="Book table" />
-      <Suspense fallback={<p>Loading reservations...</p>}>
-        <ReservationsServer />
-      </Suspense>
+      <div className="aspect-[4/3] min-h-[40vh]">
+        <Suspense fallback={<span>Loading reservations…</span>}>
+          <ReservationsServer />
+        </Suspense>
+      </div>
     </main>
   );
 }
