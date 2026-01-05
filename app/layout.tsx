@@ -8,6 +8,7 @@ import { FaInstagram } from "react-icons/fa";
 import Image from "next/image";
 import Header from "./components_home/Header";
 import Hero from "./components_home/Hero";
+import Link from "next/link";
 
 const ubuntu = Ubuntu({
   variable: "--font-poppins",
@@ -64,24 +65,31 @@ export default function RootLayout({
             <div className="hidden md:flex items-center md:col-2 md:row-start-1">
               <h3 className="text-(--pink) font-semibold">RECENT POSTS</h3>
             </div>
-            <div className="col-auto row-auto hidden md:flex md:col-2 md:row-start-2 gap-5">
-              <img src="/assets/content-img/recent_post1.jpg" className="w-20 h-auto" alt="Recent post one" />
-              <div>
-                <p>
-                  Lorem Ipsum is simply dummy text <br /> of the printing and typesetting.
-                </p>
-                <p className="text-(--pink) pt-2">April 17, 2018</p>
+
+            {/******************* FORBEDRING - link til blogsiden ********************/}
+            <Link href="/blog" className="cursor-pointer">
+              <div className="col-auto row-auto hidden md:flex md:col-2 md:row-start-2 gap-5">
+                <img src="/assets/content-img/recent_post1.jpg" className="w-20 h-auto" alt="Recent post one" />
+                <div>
+                  <p>
+                    Lorem Ipsum is simply dummy text <br /> of the printing and typesetting.
+                  </p>
+                  <p className="text-(--pink) pt-2">April 17, 2018</p>
+                </div>
               </div>
-            </div>
-            <div className="col-auto row-auto hidden md:flex md:col-2 md:row-start-3 gap-5">
-              <img src="/assets/content-img/recent_post2.jpg" className="w-20 h-auto" alt="Recent posts 2" />
-              <div>
-                <p>
-                  Lorem Ipsum is simply dummy text <br /> of the printing and typesetting.
-                </p>
-                <p className="text-(--pink) pt-2">April 17, 2018</p>
+            </Link>
+            {/******************* FORBEDRING - link til blogsiden ********************/}
+            <Link href="/blog" className="cursor-pointer">
+              <div className="col-auto row-auto hidden md:flex md:col-2 md:row-start-3 gap-5">
+                <img src="/assets/content-img/recent_post2.jpg" className="w-20 h-auto" alt="Recent posts 2" />
+                <div>
+                  <p>
+                    Lorem Ipsum is simply dummy text <br /> of the printing and typesetting.
+                  </p>
+                  <p className="text-(--pink) pt-2">April 17, 2018</p>
+                </div>
               </div>
-            </div>
+            </Link>
 
             {/* Recent tweets */}
             <div className="hidden md:flex items-center md:col-3 md:row-start-1">
@@ -105,6 +113,7 @@ export default function RootLayout({
                 <p className="text-(--pink) pt-2">5 hours ago</p>
               </div>
             </div>
+
 
             {/* Footer bottom */}
             <div className="order-2 md:order-1 col-auto row-auto md:col-1 md:row-start-4 self-end md:self-end">
